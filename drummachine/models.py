@@ -10,6 +10,7 @@ def sounds_path():
 
 class Rack(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="racks")
+    name = models.CharField(max_length=25, default="untitled")
     instruments = models.JSONField()
 
 
