@@ -27,6 +27,10 @@ def load_kit(request):
             "instruments": instruments_list,
             "message": "Success!"
         }, status=200)
+    else:
+        return JsonResponse({
+            "message": "Error: Must use GET!"
+        }, status=400)
 
 
 def load_sound(request, url):
