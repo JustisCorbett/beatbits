@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import requests
+import json
 
 # Create your views here.
 def index(request):
+    """ Render index with all kits to choose from """
     kits = Kit.objects.all()
     return render(request, "drummachine/index.html", {
         "kits": kits
@@ -35,6 +37,5 @@ def load_kit(request):
 
 def load_sound(request, url):
     """ Load sounds on server to avoid CORS blocking and return as HttpResponse"""
-    res = requests.get("https://drive.google.com/uc?export=download&id=1qoQnwu5gurCdi2eTl43cd0QkwBAieG7l")
-    #res = requests.get("https://drive.google.com/uc?export=download&id=1H1UKLASmp9GA09GyrGiprG6qaeuaGZ")
+    res = requests.get(url)
     return HttpResponse(res)
