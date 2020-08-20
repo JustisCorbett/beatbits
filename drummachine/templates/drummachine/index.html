@@ -1,12 +1,20 @@
+{% load static from static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.43/Tone.js" integrity="sha512-EykMJ8DUk41zHUpEBrlm8oWxXqmQXi5dKBvuaEiziqFMrcfGYsXz1KwBMA+ejy6noTfwVGwer1WSYrbNBrjT2w==" crossorigin="anonymous"></script>
+    <script src="{% static 'drummachine/main.js' %}"></script>
     <title>BeatBits</title>
 </head>
 <body>
     <audio controls src="{% url 'load_sound' %}"></audio>
+    <h1>{% url 'load_sound' %}</h1>
+    <audio controls src="https://drive.google.com/uc?export=download&id=1qoQnwu5gurCdi2eTl43cd0QkwBAieG7l"></audio>
+    <audio controls src="loadSound()"></audio>
+    <button onclick="loadSound()">start</button>
+
 </body>
 </html>
