@@ -12,9 +12,15 @@ class Rack(models.Model):
     name = models.CharField(max_length=25, default="untitled")
     config = models.JSONField()
 
+    def __str__(self):
+        return "%s's Rack %s" % (self.user, self.name)
+
 
 class Kit(models.Model):
     name = models.CharField(max_length=25)
+
+    def __str__(self):
+        return "%s" % (self.name)
 
 
 class Instrument(models.Model):
@@ -22,4 +28,6 @@ class Instrument(models.Model):
     kit = models.ForeignKey(Kit, on_delete=models.CASCADE, related_name="instruments")
     url = models.URLField()
 
+    def __str__(self):
+        return "%s" % (self.name)
     
