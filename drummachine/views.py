@@ -14,13 +14,19 @@ def load_kit(request):
     if request.method == "GET":
         data = json.loads(request.body)
         kit_id = data.get("id")
+
+        instruments = Instrument.objects.filter(kit=kit_id)
+        if not instruments:
+            return JsonResponse({
+                "message": "Error: Kit does not exist!"
+            }, status=404)
         # wrap query values in list for json
-        instruments = list(Instrument.objects.filter(kit = kit_id).values())
+        instruments_list = list(instruments.values())
         
-    return JsonResponse({
-        "instruments": instruments,
-        "message": message
-    }, status=400)
+        return JsonResponse({
+            "instruments": instruments_list,
+            "message": "Success!"
+        }, status=200)
 
 
 def load_sound(request, url):
