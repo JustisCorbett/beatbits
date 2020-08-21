@@ -3,6 +3,9 @@ from django.http import HttpResponse, JsonResponse
 import requests
 import json
 
+from .models import Rack, Kit, Instrument
+
+
 # Create your views here.
 def index(request):
     """ Render index with all kits to choose from """

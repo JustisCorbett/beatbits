@@ -7,14 +7,52 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.43/Tone.js" integrity="sha512-EykMJ8DUk41zHUpEBrlm8oWxXqmQXi5dKBvuaEiziqFMrcfGYsXz1KwBMA+ejy6noTfwVGwer1WSYrbNBrjT2w==" crossorigin="anonymous"></script>
     <script src="{% static 'drummachine/main.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <title>BeatBits</title>
 </head>
 <body>
-    <audio controls src="{% url 'load_sound' %}"></audio>
-    <h1>{% url 'load_sound' %}</h1>
-    <audio controls src="https://drive.google.com/uc?export=download&id=1qoQnwu5gurCdi2eTl43cd0QkwBAieG7l"></audio>
-    <audio controls src="loadSound()"></audio>
+    <form id="kit-select">
+        <label for="kits">Select A Kit</label>
+        <select name="kits" id="kits">
+            {% for kit in kits %}
+                <option value={{ kit.id }}>{{ kit.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form>
     <button onclick="loadSound()">start</button>
+    <div>
+        <div>
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div>
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+        <div>
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+          <input type="checkbox" />
+        </div>
+      </div>
 
 </body>
 </html>
