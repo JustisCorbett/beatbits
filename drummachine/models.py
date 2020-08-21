@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 
 def sounds_path():
-    return os.path.join(settings.STATIC_URL, 'sounds')
+    return os.path.join(settings.STATIC_URL, 'drummachine/sounds/')
 
 
 class Rack(models.Model):
@@ -26,7 +26,7 @@ class Kit(models.Model):
 class Instrument(models.Model):
     name = models.CharField(max_length=25)
     kit = models.ForeignKey(Kit, on_delete=models.CASCADE, related_name="instruments")
-    url = models.URLField()
+    path = models.FilePathField(path=sounds_path())
 
     def __str__(self):
         return "%s" % (self.name)
