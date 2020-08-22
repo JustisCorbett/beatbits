@@ -21,8 +21,8 @@
         <button id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
     </div>
     <button onclick="loadSound()">start</button>
-    <div>
-        <div>
+    <div id="drum-machine">
+        <div class="drum-row">
           <input type="checkbox" />
           <input type="checkbox" />
           <input type="checkbox" />
@@ -32,7 +32,7 @@
           <input type="checkbox" />
           <input type="checkbox" />
         </div>
-        <div>
+        <div class="drum-row">
           <input type="checkbox" />
           <input type="checkbox" />
           <input type="checkbox" />
@@ -42,7 +42,7 @@
           <input type="checkbox" />
           <input type="checkbox" />
         </div>
-        <div>
+        <div class="drum-row">
           <input type="checkbox" />
           <input type="checkbox" />
           <input type="checkbox" />
@@ -52,7 +52,8 @@
           <input type="checkbox" />
           <input type="checkbox" />
         </div>
-      </div>
+    </div>
+    <button onclick="startPattern()">Start Pattern</button>
 
 </body>
 </html>

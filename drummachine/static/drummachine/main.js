@@ -1,10 +1,10 @@
 
     // play as soon as the buffer is loaded
 function loadSound() {
-    players.forEach((instrument) => {
-        instrument.player.restart();
-    })
-    Tone.start();
+    players[1].player.start()
+    // players.forEach((instrument) => {
+    //     instrument.player.start();
+    // })
 };
 
 let players = []
@@ -39,14 +39,17 @@ document.documentElement.addEventListener('mousedown', () => {
 const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
-synths.forEach(synth => synth.connect(gain));
-
-const rows = document.body.querySelectorAll('div > div');
-
+//synths.forEach(synth => synth.connect(gain));
+let rows = document.querySelectorAll('.drum-row');
 let index = 0;
 
-Tone.Transport.scheduleRepeat(repeat, '8n');
-Tone.Transport.start();
+function startPattern() {
+    rows = document.querySelectorAll('.drum-row');
+    console.log(rows.length)
+
+    Tone.Transport.scheduleRepeat(repeat, '8n');
+    Tone.Transport.start();
+}
 
 function repeat(time) {
   let step = index % 8;
