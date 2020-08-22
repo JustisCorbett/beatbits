@@ -20,7 +20,7 @@ function loadKit(btn) {
         instruments = data.instruments;
         instruments.forEach((instrument) => {
             let player = new Tone.Player(instrument.path).toDestination();
-            players.push({'name': instrument.name, "player": player});
+            players.push({'name': instrument.name, 'player': player});
         })
         console.log(instruments);
         btn.removeAttribute('disabled');
@@ -39,16 +39,47 @@ document.documentElement.addEventListener('mousedown', () => {
 const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
+let playBtn = document.getElementById('play-btn'),
+    pauseBtn = document.getElementById('pause-btn'),
+    stopBtn = document.getElementById('stop-btn');
+
+window.onload = () => {
+    playBtn = document.getElementById('play-btn'),
+    pauseBtn = document.getElementById('pause-btn'),
+    stopBtn = document.getElementById('stop-btn');
+    rows = document.querySelectorAll('.drum-row');
+    console.log(playBtn);
+}
 //synths.forEach(synth => synth.connect(gain));
 let rows = document.querySelectorAll('.drum-row');
 let index = 0;
 
 function startPattern() {
     rows = document.querySelectorAll('.drum-row');
-    console.log(rows.length)
+    pauseBtn.removeAttribute('disabled');
+    stopBtn.removeAttribute('disabled');
+    playBtn.setAttribute('disabled', true);
 
-    Tone.Transport.scheduleRepeat(repeat, '8n');
+    Tone.Transport.scheduleRepeat(repeat, '16n');
     Tone.Transport.start();
+}
+
+function pausePattern() {
+    playBtn.removeAttribute('disabled');
+    stopBtn.removeAttribute('disabled');
+    pauseBtn.setAttribute('disabled', true);
+    
+    Tone.Transport.pause();
+    Tone.Transport.cancel();
+}
+
+function stopPattern() {
+    playBtn.removeAttribute('disabled');
+    pauseBtn.removeAttribute('disabled');
+    stopBtn.setAttribute('disabled', true);
+
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
 }
 
 function repeat(time) {
