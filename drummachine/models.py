@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 
-def sounds_path():
-    return os.path.join(settings.STATIC_URL, 'drummachine/sounds/')
-
 
 class Rack(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="racks")
@@ -26,7 +23,7 @@ class Kit(models.Model):
 class Instrument(models.Model):
     name = models.CharField(max_length=25)
     kit = models.ForeignKey(Kit, on_delete=models.CASCADE, related_name="instruments")
-    path = models.FilePathField(path=sounds_path())
+    path = models.CharField(max_length=50)
 
     def __str__(self):
         return "%s" % (self.name)

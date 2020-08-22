@@ -14,13 +14,11 @@ def index(request):
         "kits": kits
     })
 
-def load_kit(request):
+def load_kit(request, kit):
     """ Query db for instruments belonging in provided kit and return json of values"""
     if request.method == "GET":
-        data = json.loads(request.body)
-        kit_id = data.get("id")
 
-        instruments = Instrument.objects.filter(kit=kit_id)
+        instruments = Instrument.objects.filter(kit=kit)
         if not instruments:
             return JsonResponse({
                 "message": "Error: Kit does not exist!"

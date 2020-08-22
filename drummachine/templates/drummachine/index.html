@@ -11,15 +11,15 @@
     <title>BeatBits</title>
 </head>
 <body>
-    <form id="kit-select">
+    <div id="kit-select">
         <label for="kits">Select A Kit</label>
         <select name="kits" id="kits">
             {% for kit in kits %}
                 <option value={{ kit.id }}>{{ kit.name }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Submit</button>
-    </form>
+        <button id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
+    </div>
     <button onclick="loadSound()">start</button>
     <div>
         <div>
