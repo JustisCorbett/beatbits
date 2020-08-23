@@ -1,13 +1,19 @@
+let players = [];
+let rows = document.querySelectorAll('.drum-row');
+let index = 0;
 
-    // play as soon as the buffer is loaded
-function loadSound() {
-    players[1].player.start()
-    // players.forEach((instrument) => {
-    //     instrument.player.start();
-    // })
-};
+let playBtn = document.getElementById('play-btn'),
+    pauseBtn = document.getElementById('pause-btn'),
+    stopBtn = document.getElementById('stop-btn');
 
-let players = []
+window.onload = () => {
+    playBtn = document.getElementById('play-btn'),
+    pauseBtn = document.getElementById('pause-btn'),
+    stopBtn = document.getElementById('stop-btn');
+    rows = document.querySelectorAll('.drum-row');
+    console.log(playBtn);
+    Tone.Transport.bpm.value = 140;
+}
 
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
@@ -39,20 +45,14 @@ document.documentElement.addEventListener('mousedown', () => {
 const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
-let playBtn = document.getElementById('play-btn'),
-    pauseBtn = document.getElementById('pause-btn'),
-    stopBtn = document.getElementById('stop-btn');
 
-window.onload = () => {
-    playBtn = document.getElementById('play-btn'),
-    pauseBtn = document.getElementById('pause-btn'),
-    stopBtn = document.getElementById('stop-btn');
-    rows = document.querySelectorAll('.drum-row');
-    console.log(playBtn);
-}
+
 //synths.forEach(synth => synth.connect(gain));
-let rows = document.querySelectorAll('.drum-row');
-let index = 0;
+function changeBpm(input) {
+    bpm = input.value;
+    console.log(bpm)
+    Tone.Transport.bpm.rampTo(bpm, 0.5);
+}
 
 function startPattern() {
     rows = document.querySelectorAll('.drum-row');
@@ -83,7 +83,7 @@ function stopPattern() {
 }
 
 function repeat(time) {
-  let step = index % 8;
+  let step = index % 16;
   for (let i = 0; i < rows.length; i++) {
     let player = players[i].player,
         row = rows[i],
@@ -91,6 +91,7 @@ function repeat(time) {
     if (input.checked) player.start(time);
   }
   index++;
+
 }
 
 
