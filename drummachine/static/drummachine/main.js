@@ -11,7 +11,6 @@ window.onload = () => {
     pauseBtn = document.getElementById('pause-btn'),
     stopBtn = document.getElementById('stop-btn');
     rows = document.querySelectorAll('.drum-row');
-    console.log(playBtn);
     Tone.Transport.bpm.value = 140;
 }
 
@@ -28,7 +27,6 @@ function loadKit(btn) {
             let player = new Tone.Player(instrument.path).toDestination();
             players.push({'name': instrument.name, 'player': player});
         })
-        console.log(instruments);
         btn.removeAttribute('disabled');
         return null;
     });
@@ -50,7 +48,6 @@ gain.toDestination();
 //synths.forEach(synth => synth.connect(gain));
 function changeBpm(input) {
     bpm = input.value;
-    console.log(bpm)
     Tone.Transport.bpm.rampTo(bpm, 0.5);
 }
 
@@ -60,7 +57,7 @@ function startPattern() {
     stopBtn.removeAttribute('disabled');
     playBtn.setAttribute('disabled', true);
 
-    Tone.Transport.scheduleRepeat(repeat, '16n');
+    Tone.Transport.scheduleRepeat(repeat, '8n');
     Tone.Transport.start();
 }
 
@@ -71,6 +68,7 @@ function pausePattern() {
     
     Tone.Transport.pause();
     Tone.Transport.cancel();
+    
 }
 
 function stopPattern() {
@@ -80,6 +78,8 @@ function stopPattern() {
 
     Tone.Transport.stop();
     Tone.Transport.cancel();
+    Tone.Transport.seconds = 0;
+    index = 0;
 }
 
 function repeat(time) {
