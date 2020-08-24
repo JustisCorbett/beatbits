@@ -12,6 +12,10 @@ window.onload = () => {
     stopBtn = document.getElementById('stop-btn');
     rows = document.querySelectorAll('.drum-row');
     Tone.Transport.bpm.value = 140;
+
+    //load default kit
+    btn = document.getElementById('kit-select-btn');
+    loadKit(btn);
 }
 
 function loadKit(btn) {
@@ -46,9 +50,12 @@ gain.toDestination();
 
 
 //synths.forEach(synth => synth.connect(gain));
-function changeBpm(input) {
+function changeBpm(btn) {
+    btn.setAttribute('disabled', true);
+    input = document.getElementById('bpm-input');
     bpm = input.value;
     Tone.Transport.bpm.rampTo(bpm, 0.5);
+    btn.removeAttribute('disabled');
 }
 
 function startPattern() {

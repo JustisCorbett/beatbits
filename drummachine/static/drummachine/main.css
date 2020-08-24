@@ -10,12 +10,32 @@ body {
     width: 100%;
 }
 
+select {
+    font-size: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    border-color: #363636;
+}
+
+.input {
+    border-color: #363636;
+    width: auto;
+}
+
 .option-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     background-color: #CCCCCC;
     flex-wrap: wrap;
+    margin: 2rem 2rem 0rem 2rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .machine-container {
@@ -23,4 +43,31 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-content: center;
+    width: auto;
+    margin: 0rem 2rem;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.drum-machine {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    border-radius: 10px;
+    border-color: #292929;
+}
+
+.drum-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
