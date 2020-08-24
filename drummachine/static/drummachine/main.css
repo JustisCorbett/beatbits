@@ -55,8 +55,10 @@ select {
     flex-direction: column;
     justify-content: space-around;
     align-content: center;
-    border-radius: 10px;
+    border-radius: 5px;
     border-color: #292929;
+    background-color: #292929;
+    margin: 1rem;
 }
 
 .drum-row {
