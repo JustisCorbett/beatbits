@@ -1,102 +1,96 @@
-{% load static from static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.43/Tone.js" integrity="sha512-EykMJ8DUk41zHUpEBrlm8oWxXqmQXi5dKBvuaEiziqFMrcfGYsXz1KwBMA+ejy6noTfwVGwer1WSYrbNBrjT2w==" crossorigin="anonymous"></script>
-    <script src="{% static 'drummachine/main.js' %}"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <title>BeatBits</title>
-</head>
-<body>
-    <div id="kit-select">
-        <label for="kits">Select A Kit</label>
-        <select name="kits" id="kits">
-            {% for kit in kits %}
-                <option value={{ kit.id }}>{{ kit.name }}</option>
-            {% endfor %}
-        </select>
-        <button id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
-    </div>
+{% extends "drummachine/layout.html" %}
 
-    <div>
-        <input id="bpm-input" type="number" value="140" min="60" max="180" step="1" onChange="changeBpm(this)"/>
-    </div>
-    <div id="drum-machine">
-        <div class="drum-row">
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="drum-row">
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-        <div class="drum-row">
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-          <input type="checkbox" />
-        </div>
-    </div>
-    <div class="controls">
-        <button onclick="startPattern()" id="play-btn">
-            <span class="icon is-medium">
-                <i class="fas fa-lg fa-play"></i>
-            </span>
-        </button>
-        <button onclick="pausePattern()" id="pause-btn">
-            <span class="icon is-medium">
-                <i class="fas fa-lg fa-pause"></i>
-            </span>
-        </button>
-        <button onclick="stopPattern()" id="stop-btn">
-            <span class="icon is-medium">
-                <i class="fas fa-lg fa-stop"></i>
-            </span>
-        </button>
-    </div>
+{% block title %}BeatBits{% endblock %}
 
-</body>
-</html>
+{% block body %}
+    <div class="option-container">
+        <div id="kit-select">
+            <label for="kits">Select A Kit</label>
+            <select name="kits" id="kits">
+                {% for kit in kits %}
+                    <option value={{ kit.id }}>{{ kit.name }}</option>
+                {% endfor %}
+            </select>
+            <button id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
+        </div>
+        <div>
+            <label for="bpm-input">BPM</label>
+            <input name="bpm-input" id="bpm-input" type="number" value="140" min="60" max="180" step="1" onChange="changeBpm(this)"/>
+        </div>
+    </div>
+    <div class="machine-container">
+        <div id="drum-machine">
+            <div class="drum-row">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            </div>
+            <div class="drum-row">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            </div>
+            <div class="drum-row">
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <input type="checkbox" />
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="startPattern()" id="play-btn">
+                <span class="icon is-medium">
+                    <i class="fas fa-lg fa-play"></i>
+                </span>
+            </button>
+            <button onclick="pausePattern()" id="pause-btn">
+                <span class="icon is-medium">
+                    <i class="fas fa-lg fa-pause"></i>
+                </span>
+            </button>
+            <button onclick="stopPattern()" id="stop-btn">
+                <span class="icon is-medium">
+                    <i class="fas fa-lg fa-stop"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+{% endblock %}

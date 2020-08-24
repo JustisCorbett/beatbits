@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #292929;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.option-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #CCCCCC;
+    flex-wrap: wrap;
+}
+
+.machine-container {
+    background-color: #525252;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
