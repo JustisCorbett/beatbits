@@ -57,19 +57,52 @@ select {
     align-content: center;
     border-radius: 5px;
     border-color: #292929;
-    background-color: #292929;
+    background-color: #CCCCCC;
     margin: 1rem;
+}
+
+.machine-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space;
+    flex-wrap: nowrap;
+    border: 1px #292929 solid;
 }
 
 .drum-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: stretch;
+    align-content: center;
     flex-wrap: nowrap;
+    flex: 1;
+
 }
 
 .controls {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.instr-info-box {
+    background-color: #CCCCCC;
+    color: #292929;
+    padding: 0.25rem;
+}
+
+.pad {
+    font-size: 0.5rem;
+    display: block;
+    width: auto;
+    height: auto;
+    background-color: #525252;
+    flex: 1;
+    border: 2px #CCCCCC solid;
+}
+
+.thin-btn {
+    padding-left: 0.15rem;
+    padding-right: 0px;
+    margin-left: 0.15rem;
 }

@@ -29,7 +29,11 @@ function loadKit(btn) {
         instruments = data.instruments;
         instruments.forEach((instrument) => {
             let player = new Tone.Player(instrument.path).toDestination();
-            players.push({'name': instrument.name, 'player': player});
+            players.push({
+                'name': instrument.name, 
+                'player': player,
+                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            });
         })
         btn.classList.remove('is-loading');
         return null;
