@@ -28,9 +28,9 @@ function loadKit(btn) {
     }).then(data => {
         instruments = data.instruments;
         instruments.forEach((instrument) => {
-            let player = new Tone.Player(instrument.path).toDestination(),
-                name = instrument.name;
-            players[name] = {
+            let player = new Tone.Player(instrument.path).toDestination();
+            players[instrument.name] = {
+                'path': instrument.path,
                 'player': player,
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
                 };
@@ -53,7 +53,7 @@ gain.toDestination();
 
 
 
-//synths.forEach(synth => synth.connect(gain));
+
 function changeBpm(btn) {
     btn.classList.add('is-loading');
     input = document.getElementById('bpm-input');
