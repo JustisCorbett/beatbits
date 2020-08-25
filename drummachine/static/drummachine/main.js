@@ -1,4 +1,4 @@
-let players = [];
+let players = {};
 let rows = document.querySelectorAll('.drum-row');
 let index = 0;
 
@@ -28,12 +28,12 @@ function loadKit(btn) {
     }).then(data => {
         instruments = data.instruments;
         instruments.forEach((instrument) => {
-            let player = new Tone.Player(instrument.path).toDestination();
-            players.push({
-                'name': instrument.name, 
+            let player = new Tone.Player(instrument.path).toDestination(),
+                name = instrument.name;
+            players[name] = {
                 'player': player,
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            });
+                };
         })
         btn.classList.remove('is-loading');
         return null;
@@ -96,10 +96,12 @@ function stopPattern() {
 function repeat(time) {
   let step = index % 16;
   for (let i = 0; i < rows.length; i++) {
-    let player = players[i].player,
-        row = rows[i],
-        input = row.querySelector(`input:nth-child(${step + 1})`);
-    if (input.checked) player.start(time);
+    let row = rows[i],
+        instrName = row.getAttribute('data-instr')
+        player = players[instrName].player,
+        pad = row.querySelector(`div:nth-child(${step + 1})`),
+        isSelected = (pad.getAttribute('data-selected') === "1" );
+    if (isSelected) player.start(time);
   }
   index++;
 
