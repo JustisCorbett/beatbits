@@ -52,7 +52,16 @@ const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
 
-
+function selectPad(pad){
+    instrument = pad.parentNode.getAttribute('data-instr');
+    if (pad.getAttribute('data-selected') === "0") {
+        pad.setAttribute('data-selected', "1");
+        pad.classList.add("selected");
+    } else {
+        pad.setAttribute('data-selected', "0");
+        pad.classList.remove("selected");
+    }
+}
 
 function changeBpm(btn) {
     btn.classList.add('is-loading');

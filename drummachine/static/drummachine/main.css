@@ -31,7 +31,7 @@ select {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: #CCCCCC;
+    background-color: #ADADAD;
     flex-wrap: wrap;
     margin: 2rem 2rem 0rem 2rem;
     border-top-left-radius: 10px;
@@ -57,7 +57,7 @@ select {
     align-content: center;
     border-radius: 5px;
     border-color: #292929;
-    background-color: #CCCCCC;
+    background-color: #ADADAD;
     margin: 1rem;
 }
 
@@ -86,7 +86,7 @@ select {
 }
 
 .instr-info-box {
-    background-color: #CCCCCC;
+    background-color: #ADADAD;
     color: #292929;
     padding: 0.25rem;
 }
@@ -99,7 +99,11 @@ select {
     height: auto;
     background-color: #525252;
     flex: 1;
-    border: 2px #CCCCCC solid;
+    border: 2px #ADADAD solid;
+}
+
+.selected {
+    background-color: #FFFFFF;
 }
 
 .thin-btn {
