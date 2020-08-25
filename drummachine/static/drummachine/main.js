@@ -21,7 +21,7 @@ window.onload = () => {
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
     
-    btn.setAttribute('disabled', true);
+    btn.classList.add('is-loading');
     fetch(('load_kit/' + kit)
     ).then(response => {
         return response.json();
@@ -31,7 +31,7 @@ function loadKit(btn) {
             let player = new Tone.Player(instrument.path).toDestination();
             players.push({'name': instrument.name, 'player': player});
         })
-        btn.removeAttribute('disabled');
+        btn.classList.remove('is-loading');
         return null;
     });
 }
@@ -51,11 +51,11 @@ gain.toDestination();
 
 //synths.forEach(synth => synth.connect(gain));
 function changeBpm(btn) {
-    btn.setAttribute('disabled', true);
+    btn.classList.add('is-loading');
     input = document.getElementById('bpm-input');
     bpm = input.value;
     Tone.Transport.bpm.rampTo(bpm, 0.5);
-    btn.removeAttribute('disabled');
+    btn.classList.remove('is-loading');
 }
 
 function startPattern() {

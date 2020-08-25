@@ -30,7 +30,7 @@ select {
 .option-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background-color: #CCCCCC;
     flex-wrap: wrap;
     margin: 2rem 2rem 0rem 2rem;
