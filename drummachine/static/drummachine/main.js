@@ -73,12 +73,11 @@ function selectPad(pad){
     }
 }
 
-function changeBpm(btn) {
-    btn.classList.add('is-loading');
-    input = document.getElementById('bpm-input');
-    bpm = input.value;
-    Tone.Transport.bpm.rampTo(bpm, 0.5);
-    btn.classList.remove('is-loading');
+function changeBpm(slider) {
+    let info = document.getElementById('bpm');
+    bpm = slider.value;
+    info.innerText = bpm;
+    Tone.Transport.bpm.rampTo(bpm, 0.1);
 }
 
 function startPattern() {

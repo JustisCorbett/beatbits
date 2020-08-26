@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="option-container py-2">
-        <div class="field is-grouped has-addons pt-2" id="kit-select">
+        <div class="kit-field field is-grouped has-addons pt-2" id="kit-select">
             <label class="hidden" for="kits">Select A Kit</label>
             <select name="kits" id="kits" class="select">
                 {% for kit in kits %}
@@ -14,9 +14,12 @@
             <button class="button" id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
         </div>
         <div class="field is-grouped has-addons pt-2">
-            <label class="hidden" for="bpm-input">BPM</label>
-            <input class="input" name="bpm-input" id="bpm-input" type="range" value="140" min="60" max="180" step="1" />
-            <button class="button" id="bpm-select-btn" onclick="changeBpm(this)">Set BPM</button>
+            <div class="input">
+                <label class="hidden" for="bpm-input">BPM</label>
+                <input class="slider" oninput="changeBpm(this)" name="bpm-input" id="bpm-input" type="range" value="140" min="60" max="180" step="1" />
+                <span class="light-info" id="bpm">140</span>
+                <span class="light-info">BPM</span>
+            </div>
         </div>
     </div>
     <div class="machine-container py-2">
