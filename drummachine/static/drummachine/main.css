@@ -131,6 +131,10 @@ body {
     margin-right: 0.15rem;
 }
 
+.highlighted {
+    border-color: #009DFF;
+}
+
 .selected {
     background-color: #FFFFFF;
 }

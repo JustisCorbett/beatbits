@@ -115,10 +115,19 @@ function repeat(time) {
   let step = index % 16;
   for (let i = 0; i < rows.length; i++) {
     let row = rows[i],
-        instrName = row.getAttribute('data-instr')
-        player = players[instrName].player,
         pad = row.querySelector(`div:nth-child(${step + 1})`),
+        previous = pad.previousElementSibling;
+        last = row.querySelector(`div:last-child`);
+        instrName = row.getAttribute('data-instr'),
+        player = players[instrName].player,
         isSelected = (pad.getAttribute('data-selected') === "1" );
+    if (previous !== null) {
+        previous.classList.remove('highlighted');
+        pad.classList.add('highlighted');
+    } else {
+        last.classList.remove('highlighted');
+    };
+    
     if (isSelected) player.start(time);
   }
   index++;
