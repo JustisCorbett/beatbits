@@ -26,8 +26,24 @@
         <div id="drum-machine" class="drum-machine">
             <div class="machine-row">
                 <div class="instr-info-box" >
-                    <h4 class="name">placeholder</h4>
-                    <button class="button is-dark thin-btn"></button>
+                    <div class="instr-name">
+                        <h4 class="name">placeholder</h4>
+                    </div>
+                    <div class="instr-controls">
+                        <div class="input">
+                            <label class="hidden" for="bpm-input">BPM</label>
+                            <input class="slider" oninput="changeBpm(this)" name="bpm-input" id="bpm-input" type="range" value="140" min="60" max="180" step="1" />
+                            <span class="light-info" id="bpm">140</span>
+                            <span class="light-info">BPM</span>
+                        </div>
+                        <div class="input">
+                            <label class="hidden" for="bpm-input">BPM</label>
+                            <input class="slider" oninput="changeBpm(this)" name="bpm-input" id="bpm-input" type="range" value="140" min="60" max="180" step="1" />
+                            <span class="light-info" id="bpm">140</span>
+                            <span class="light-info">BPM</span>
+                        </div>
+                    </div>
+                    <div class="thin-btn" onclick="movePanel"></div>
                 </div>
                 <div class="drum-row" data-instr="LEX Hat(1)">
                     <div class="pad" data-selected="0" data-i="1" onclick="selectPad(this)"></div>
