@@ -15,21 +15,15 @@
         </div>
         <div class="field is-grouped has-addons pt-2">
             <label class="hidden" for="bpm-input">BPM</label>
-            <input class="input" name="bpm-input" id="bpm-input" type="number" value="140" min="60" max="180" step="1" />
+            <input class="input" name="bpm-input" id="bpm-input" type="range" value="140" min="60" max="180" step="1" />
             <button class="button" id="bpm-select-btn" onclick="changeBpm(this)">Set BPM</button>
-        </div>
-        <div class="field is-grouped has-addons pt-2">
-            <label class="hidden" for="save-btn">BPM</label>
-            <button class="button is-success" onclick="saveBit()">Save Bit</button>
         </div>
     </div>
     <div class="machine-container py-2">
         <div id="drum-machine" class="drum-machine">
             <div class="machine-row">
                 <div class="instr-info-box" >
-                    <select name="instr-select" id="" class="select">
-                            <option value="name">placeholder</option>
-                    </select>
+                    <h4 class="name">placeholder</h4>
                     <button class="button is-dark thin-btn"></button>
                 </div>
                 <div class="drum-row" data-instr="LEX Hat(1)">
@@ -51,23 +45,35 @@
                     <div class="pad" data-selected="0" data-i="16" onclick="selectPad(this)"></div>
                 </div>
             </div>
+            <div class="control field is-grouped has-addons pb-1 pl-1">
+                <label class="hidden" for="instrument-select">Select An Instrument To Add</label>
+                <select name="instrument-select" id="instrument-select" class="select is-small">
+                    <option value="">Loading ...</option>
+                </select>
+                <button class="button is-small" id="add-instr-btn" onclick="addRow()">Add Instrument</button>
+            </div>
         </div>
-        <div class="controls py-2">
-            <button class="button" onclick="startPattern()" id="play-btn">
-                <span class="icon is-medium">
-                    <i class="fas fa-lg fa-play"></i>
-                </span>
-            </button>
-            <button class="button" onclick="pausePattern()" id="pause-btn">
-                <span class="icon is-medium">
-                    <i class="fas fa-lg fa-pause"></i>
-                </span>
-            </button>
-            <button class="button" onclick="stopPattern()" id="stop-btn">
-                <span class="icon is-medium">
-                    <i class="fas fa-lg fa-stop"></i>
-                </span>
-            </button>
+        <div class="bottom-controls py-2">
+            <div class="field is-grouped has-addons">
+                <button class="button" onclick="startPattern()" id="play-btn">
+                    <span class="icon is-medium">
+                        <i class="fas fa-lg fa-play"></i>
+                    </span>
+                </button>
+                <button class="button" onclick="pausePattern()" id="pause-btn">
+                    <span class="icon is-medium">
+                        <i class="fas fa-lg fa-pause"></i>
+                    </span>
+                </button>
+                <button class="button" onclick="stopPattern()" id="stop-btn">
+                    <span class="icon is-medium">
+                        <i class="fas fa-lg fa-stop"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="field has-addons">
+                <button class="button is-success" onclick="saveBit()">Save Bit</button>
+            </div>
         </div>
     </div>
 {% endblock %}

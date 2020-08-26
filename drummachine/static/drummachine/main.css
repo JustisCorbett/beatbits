@@ -10,7 +10,7 @@ body {
     width: 100%;
 }
 
-select {
+#kits {
     font-size: 1rem;
 }
 
@@ -18,13 +18,20 @@ select {
     display: none;
 }
 
-.button {
+.is-light {
     border-color: #363636;
 }
 
 .input {
-    border-color: #363636;
+    border-right-color: #ADADAD;
     width: auto;
+}
+
+.select {
+    border-color: transparent;
+    border-right-color: #ADADAD;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .option-container {
@@ -57,7 +64,7 @@ select {
     align-content: center;
     border-radius: 5px;
     border-color: #292929;
-    background-color: #ADADAD;
+    background-color: #292929;
     margin: 1rem;
 }
 
@@ -66,7 +73,8 @@ select {
     flex-direction: row;
     justify-content: space;
     flex-wrap: nowrap;
-    border: 1px #292929 solid;
+    border: 4px #292929 solid;
+    border-radius: 10px;
 }
 
 .drum-row {
@@ -76,19 +84,29 @@ select {
     align-content: center;
     flex-wrap: nowrap;
     flex: 1;
-
+    border: 2px #292929 solid;
 }
 
-.controls {
+.bottom-controls {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }
 
 .instr-info-box {
     background-color: #ADADAD;
     color: #292929;
     padding: 0.25rem;
+    border: 2px #292929 solid;
+    border-radius: 10px;
+}
+
+.name {
+    padding: 0.15rem;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .pad {
@@ -100,6 +118,8 @@ select {
     background-color: #525252;
     flex: 1;
     border: 2px #ADADAD solid;
+    border-radius: 15px;
+    margin-right: 0.15rem;
 }
 
 .selected {

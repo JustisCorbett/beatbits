@@ -1,3 +1,4 @@
+
 let players = {};
 let rows = document.querySelectorAll('.drum-row');
 let index = 0;
@@ -20,12 +21,17 @@ window.onload = () => {
 
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
-    
+    const addBtn = document.getElementById('add-instr-btn');
+    const instrSelect = document.getElementById('instrument-select');
+
+    instrSelect.classList.add('is-loading');
+    addBtn.classList.add('is-loading');
     btn.classList.add('is-loading');
     fetch(('load_kit/' + kit)
     ).then(response => {
         return response.json();
     }).then(data => {
+        let options = [];
         instruments = data.instruments;
         instruments.forEach((instrument) => {
             let player = new Tone.Player(instrument.path).toDestination();
@@ -33,9 +39,13 @@ function loadKit(btn) {
                 'path': instrument.path,
                 'player': player,
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-                };
-        })
+            };
+            options.push('<option value="'+ instrument.name +'">'+ instrument.name +'</option>');
+        });
+        instrSelect.innerHTML = options.join('')
         btn.classList.remove('is-loading');
+        addBtn.classList.remove('is-loading');
+        instrSelect.classList.remove('is-loading');
         return null;
     });
 }
