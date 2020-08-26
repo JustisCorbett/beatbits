@@ -126,9 +126,9 @@ body {
     height: auto;
     background-color: #525252;
     flex: 1;
-    border: 2px #ADADAD solid;
+    border: 2px #292929 solid;
     border-radius: 15px;
-    margin-right: 0.15rem;
+    
 }
 
 .highlighted {
@@ -136,7 +136,7 @@ body {
 }
 
 .selected {
-    background-color: #FFFFFF;
+    background-color: #ADADAD;
 }
 
 .thin-btn {

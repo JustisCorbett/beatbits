@@ -104,6 +104,10 @@ function stopPattern() {
     playBtn.removeAttribute('disabled');
     pauseBtn.removeAttribute('disabled');
     stopBtn.setAttribute('disabled', true);
+    let lit = document.getElementsByClassName('highlighted');
+    Array.prototype.forEach.call(lit, (pad) => {
+        pad.classList.remove('highlighted');
+    })
 
     Tone.Transport.stop();
     Tone.Transport.cancel();
@@ -126,6 +130,7 @@ function repeat(time) {
         pad.classList.add('highlighted');
     } else {
         last.classList.remove('highlighted');
+        pad.classList.add('highlighted');
     };
     
     if (isSelected) player.start(time);
