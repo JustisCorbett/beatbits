@@ -23,6 +23,14 @@ body {
     padding-left: 0.25rem;
 }
 
+.dark-info {
+    color: #ADADAD;
+    background-color: #292929;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    padding: 0.15rem;
+}
+
 .hidden {
     display: none !important; 
 }
@@ -33,9 +41,12 @@ body {
 
 .input {
     border-color: transparent;
-    border-right-color: #ADADAD;
     width: auto;
     border-radius: 15px;
+}
+
+.input:hover {
+    border-color: transparent;
 }
 
 .select {
@@ -49,7 +60,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: #ADADAD;
+    background-color: #525252;
     flex-wrap: wrap;
     margin: 2rem 2rem 0rem 2rem;
     border-top-left-radius: 10px;
@@ -57,7 +68,7 @@ body {
 }
 
 .machine-container {
-    background-color: #525252;
+    background-color: #333333;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -77,7 +88,7 @@ body {
     border-color: #292929;
     background-color: #292929;
     margin: 1rem;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .machine-row {
@@ -125,7 +136,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    align-items: start;
+    background-color: #363636;
+    border-radius: 15px;
 }
 
 .name {
@@ -160,10 +173,15 @@ body {
 }
 
 .thin-btn {
+    color: #ADADAD;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-left: 0.15rem;
     padding-right: 0px;
     margin-left: 0.15rem;
-    width: 0.75rem;
+    width: 1.75rem;
     height: 100%;
     background-color: #363636;
     border: 2px #292929 solid;
@@ -171,13 +189,15 @@ body {
 }
 
 .thin-btn:hover {
-    padding-left: 0.15rem;
-    padding-right: 0px;
-    margin-left: 0.15rem;
-    width: 0.75rem;
-    height: 100%;
     background-color: #525252;
     border: 2px #ADADAD solid;
-    border-radius: 10px;
 }
 
+@media only screen and (max-width: 767px) {
+    .option-container{
+        margin: 0rem !important;
+    }
+    .machine-container{
+        margin: 0rem !important;
+    }
+}

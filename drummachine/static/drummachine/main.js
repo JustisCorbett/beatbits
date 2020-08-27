@@ -62,15 +62,24 @@ const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
 function movePanel(btn) {
-    const panel = btn.previousElementSibling;
-    panel.classList.toggle("hidden");
+    const controls = btn.previousElementSibling;
+    const name = controls.previousElementSibling;
+
+    controls.classList.toggle('hidden');
+    name.classList.toggle('hidden');
+    if (btn.innerText === '>') {
+        btn.innerText = '<'
+    } else {
+        btn.innerText = '>'
+    }
+    
 }
 
 function selectPad(pad){
     instrument = pad.parentNode.getAttribute('data-instr');
     if (pad.getAttribute('data-selected') === "0") {
         pad.setAttribute('data-selected', "1");
-        pad.classList.add("selected");
+        pad.classList.add('selected');
     } else {
         pad.setAttribute('data-selected', "0");
         pad.classList.remove("selected");
