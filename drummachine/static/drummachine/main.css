@@ -24,7 +24,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important; 
 }
 
 .is-light {
@@ -32,8 +32,10 @@ body {
 }
 
 .input {
+    border-color: transparent;
     border-right-color: #ADADAD;
     width: auto;
+    border-radius: 15px;
 }
 
 .select {
@@ -75,6 +77,7 @@ body {
     border-color: #292929;
     background-color: #292929;
     margin: 1rem;
+    overflow-x: scroll;
 }
 
 .machine-row {
@@ -84,16 +87,16 @@ body {
     flex-wrap: nowrap;
     border: 4px #292929 solid;
     border-radius: 10px;
+    
 }
 
 .drum-row {
     display: flex;
     flex-direction: row;
-    justify-content: stretch;
-    align-content: center;
     flex-wrap: nowrap;
     flex: 1;
     border: 2px #292929 solid;
+    height: 6rem;
 }
 
 .bottom-controls {
@@ -111,6 +114,7 @@ body {
     border: 2px #292929 solid;
     border-radius: 10px;
     width: fit-content;
+    height: 6rem;
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -120,7 +124,7 @@ body {
 .instr-controls {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 
@@ -134,10 +138,11 @@ body {
     font-size: 0.5rem;
     display: block;
     width: auto;
-    min-width: 12px;
-    height: auto;
-    background-color: #525252;
+    min-width: 2rem;
+    max-width: 6rem;
     flex: 1;
+    height: 100% !important;
+    background-color: #525252;
     border: 2px #292929 solid;
     border-radius: 15px;
 }
@@ -175,3 +180,4 @@ body {
     border: 2px #ADADAD solid;
     border-radius: 10px;
 }
+

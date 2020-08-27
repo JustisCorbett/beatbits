@@ -61,6 +61,10 @@ document.documentElement.addEventListener('mousedown', () => {
 const gain = new Tone.Gain(0.6);
 gain.toDestination();
 
+function movePanel(btn) {
+    const panel = btn.previousElementSibling;
+    panel.classList.toggle("hidden");
+}
 
 function selectPad(pad){
     instrument = pad.parentNode.getAttribute('data-instr');
