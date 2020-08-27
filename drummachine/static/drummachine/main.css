@@ -39,6 +39,10 @@ body {
     border-color: #363636;
 }
 
+.is-light:hover {
+    border-color: #292929 !important;
+}
+
 .input {
     border-color: transparent;
     width: auto;
@@ -162,6 +166,7 @@ body {
 
 .pad:hover {
     border: 2px #ADADAD solid;
+    cursor: pointer;
 }
 
 .highlighted {
@@ -191,6 +196,7 @@ body {
 .thin-btn:hover {
     background-color: #525252;
     border: 2px #ADADAD solid;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 767px) {

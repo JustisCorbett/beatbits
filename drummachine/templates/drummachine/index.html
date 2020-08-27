@@ -11,7 +11,7 @@
                     <option value={{ kit.id }}>{{ kit.name }}</option>
                 {% endfor %}
             </select>
-            <button class="button" id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
+            <button class="button is-light" id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
         </div>
         <div class="field is-grouped has-addons pt-2">
             <div class="input">
@@ -27,10 +27,23 @@
             <div class="machine-row">
                 <div class="instr-info-box" data-instr="LEX Hat(1)">
                     <div class="side-controls">
-                        
+                        <div>
+                            <button class="button is-light" onclick="removeInstr(this)" id="remove-btn">
+                                <span class="icon is-large">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div>
+                            <button class="button is-light" onclick="muteInstr(this)" id="mute-btn">
+                                <span class="icon is-large">
+                                    <i class="fas fa-volume-up"></i>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                     <div class="instr-name hidden">
-                        <h4 class="name">placeholder</h4>
+                        <h4 id="instr-name">placeholder</h4>
                     </div>
                     <div class="instr-controls hidden">
                         <div class="input">
@@ -47,7 +60,9 @@
                         </div>
                     </div>
                     <div class="thin-btn" onclick="movePanel(this)">
-                    > 
+                        <span class="icon is-small">
+                            <i id="panel-button" class="fas fa-angle-right"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="drum-row" data-instr="LEX Hat(1)">
@@ -74,22 +89,22 @@
                 <select name="instrument-select" id="instrument-select" class="select is-small">
                     <option value="">Loading ...</option>
                 </select>
-                <button class="button is-small" id="add-instr-btn" onclick="addRow()">Add Instrument</button>
+                <button class="button is-light is-small" id="add-instr-btn" onclick="addRow()">Add Instrument</button>
             </div>
         </div>
         <div class="bottom-controls py-2">
             <div class="field is-grouped has-addons">
-                <button class="button" onclick="startPattern()" id="play-btn">
+                <button class="button is-light" onclick="startPattern()" id="play-btn">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-play"></i>
                     </span>
                 </button>
-                <button class="button" onclick="pausePattern()" id="pause-btn">
+                <button class="button is-light" onclick="pausePattern()" id="pause-btn">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-pause"></i>
                     </span>
                 </button>
-                <button class="button" onclick="stopPattern()" id="stop-btn">
+                <button class="button is-light" onclick="stopPattern()" id="stop-btn">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-stop"></i>
                     </span>

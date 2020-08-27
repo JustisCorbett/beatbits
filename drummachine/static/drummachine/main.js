@@ -64,15 +64,12 @@ gain.toDestination();
 function movePanel(btn) {
     const controls = btn.previousElementSibling;
     const name = controls.previousElementSibling;
+    const icon = document.getElementById('panel-button');
 
     controls.classList.toggle('hidden');
     name.classList.toggle('hidden');
-    if (btn.innerText === '>') {
-        btn.innerText = '<'
-    } else {
-        btn.innerText = '>'
-    }
-    
+    icon.classList.toggle('fa-angle-right');
+    icon.classList.toggle('fa-angle-left');
 }
 
 function selectPad(pad){
