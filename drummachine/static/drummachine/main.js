@@ -23,10 +23,15 @@ function loadKit(btn) {
     const kit = document.getElementById('kits').value;
     const addBtn = document.getElementById('add-instr-btn');
     const instrSelect = document.getElementById('instrument-select');
+    const machineRow = document.getElementsByClassName('machine-row')[0];
+    const info = machineRow.getElementsByClassName('instr-info-box')[0];
+    const name = info.getElementsByClassName('name')[0];
+    const drumRow = machineRow.getElementsByClassName('drum-row')[0];
 
     instrSelect.classList.add('is-loading');
     addBtn.classList.add('is-loading');
     btn.classList.add('is-loading');
+
     fetch(('load_kit/' + kit)
     ).then(response => {
         return response.json();
@@ -43,6 +48,9 @@ function loadKit(btn) {
             options.push('<option value="'+ instrument.name +'">'+ instrument.name +'</option>');
         });
         instrSelect.innerHTML = options.join('')
+        info.setAttribute('data-instr', instruments[0].name);
+        name.innerText = instruments[0].name;
+        drumRow.setAttribute('data-instr', instruments[0].name);
         btn.classList.remove('is-loading');
         addBtn.classList.remove('is-loading');
         instrSelect.classList.remove('is-loading');
