@@ -58,30 +58,37 @@ document.documentElement.addEventListener('mousedown', () => {
 });
 
 function muteInstr(btn) {
-    const icon = btn.getElementsByTagName('i');
+    const icon = btn.getElementsByTagName('svg')[0];
     const instrument = btn.parentNode.parentNode.parentNode.getAttribute('data-instr');
     const player = players[instrument].player;
-
+    btn.classList.add('is-loading');
     if (player.mute === true) {
         player.mute = false;
     } else {
         player.mute = true;
-    }
+    };
     btn.classList.toggle('is-dark');
     btn.classList.toggle('is-light');
-    icon.classList.toggle('fa-volume-up');
-    icon.classList.toggle('fa-volume-mute');
+    if (icon.getAttribute('data-icon') === 'volume-up') {
+        icon.setAttribute('data-icon', 'volume-mute');
+    } else {
+        icon.setAttribute('data-icon', 'volume-up');
+    };
+    btn.classList.remove('is-loading');
 }
 
 function movePanel(btn) {
-    const icon = btn.getElementsByTagName('i');
+    const icon = btn.getElementsByTagName('svg')[0];
     const controls = btn.previousElementSibling;
     const name = controls.previousElementSibling;
 
     controls.classList.toggle('hidden');
     name.classList.toggle('hidden');
-    icon.classList.toggle('fa-angle-right');
-    icon.classList.toggle('fa-angle-left');
+    if (icon.getAttribute('data-icon') === 'angle-right') {
+        icon.setAttribute('data-icon', 'angle-left');
+    } else {
+        icon.setAttribute('data-icon', 'angle-right');
+    };
 }
 
 function selectPad(pad){
