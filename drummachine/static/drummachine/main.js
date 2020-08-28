@@ -77,6 +77,18 @@ function muteInstr(btn) {
     btn.classList.remove('is-loading');
 }
 
+function moveAddPanel(btn) {
+    const icon = btn.getElementsByTagName('svg')[0];
+    const panel = document.getElementById('add-instr-panel');
+
+    panel.classList.toggle('hidden');
+    if (icon.getAttribute('data-icon') === 'plus') {
+        icon.setAttribute('data-icon', 'times')
+    } else {
+        icon.setAttribute('data-icon', 'plus')
+    };
+}
+
 function movePanel(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const controls = btn.previousElementSibling;

@@ -10,8 +10,8 @@ body {
     width: 100%;
 }
 
-#kits {
-    font-size: 1rem;
+.select {
+    font-size: 1rem !important;
 }
 
 .input {
@@ -144,6 +144,10 @@ body {
     align-items: start;
     background-color: #363636;
     border-radius: 15px;
+}
+
+.side-controls {
+    border-right: 2px #292929 solid;
 }
 
 .name {
