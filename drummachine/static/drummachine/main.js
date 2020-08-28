@@ -104,7 +104,7 @@ function selectPad(pad){
 
 function changeBpm(slider) {
     let info = document.getElementById('bpm');
-    bpm = slider.value;
+    let bpm = slider.value;
     info.innerText = bpm;
     Tone.Transport.bpm.rampTo(bpm, 0.1);
 }

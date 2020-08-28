@@ -37,6 +37,7 @@ body {
 
 .is-light {
     border-color: #363636;
+    background-color: #ADADAD !important;
 }
 
 .is-light:hover {
