@@ -199,6 +199,12 @@ body {
     cursor: pointer;
 }
 
+.mute-icon{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f133";
+}
+
 @media only screen and (max-width: 767px) {
     .option-container{
         margin: 0rem !important;

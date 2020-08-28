@@ -57,14 +57,26 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function muteInstr(btn) {
+    const icon = btn.getElementsByTagName('i');
+    const instrument = btn.parentNode.parentNode.parentNode.getAttribute('data-instr');
+    const player = players[instrument].player;
 
-const gain = new Tone.Gain(0.6);
-gain.toDestination();
+    if (player.mute === true) {
+        player.mute = false;
+    } else {
+        player.mute = true;
+    }
+    btn.classList.toggle('is-dark');
+    btn.classList.toggle('is-light');
+    icon.classList.toggle('fa-volume-up');
+    icon.classList.toggle('fa-volume-mute');
+}
 
 function movePanel(btn) {
+    const icon = btn.getElementsByTagName('i');
     const controls = btn.previousElementSibling;
     const name = controls.previousElementSibling;
-    const icon = document.getElementById('panel-button');
 
     controls.classList.toggle('hidden');
     name.classList.toggle('hidden');
