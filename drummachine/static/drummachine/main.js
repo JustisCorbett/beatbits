@@ -23,7 +23,9 @@ function loadKit(btn) {
     const kit = document.getElementById('kits').value;
     const addBtn = document.getElementById('add-instr-btn');
     const instrSelect = document.getElementById('instrument-select');
-    const machineRow = document.getElementsByClassName('machine-row')[0];
+    const machineRows = document.getElementsByClassName('machine-row');
+    const machineRow = machineRows[0];
+    const rowParent = machineRow.parentNode;
     const info = machineRow.getElementsByClassName('instr-info-box')[0];
     const name = info.getElementsByClassName('name')[0];
     const drumRow = machineRow.getElementsByClassName('drum-row')[0];
@@ -31,6 +33,10 @@ function loadKit(btn) {
     instrSelect.classList.add('is-loading');
     addBtn.classList.add('is-loading');
     btn.classList.add('is-loading');
+
+    for (i = machineRows.length; i > 1; i--) {
+        rowParent.removeChild(rowParent.lastChild);
+    };
 
     fetch(('load_kit/' + kit)
     ).then(response => {
@@ -68,7 +74,7 @@ document.documentElement.addEventListener('mousedown', () => {
 function addRow() {
     const selector = document.getElementById('instrument-select');
     const selection = selector.value;
-    if (selection === "none") return;
+    if (selection === "none") return; // stop function if default option is selected
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
     const info = machineRowClone.getElementsByClassName('instr-info-box')[0];
@@ -82,7 +88,7 @@ function addRow() {
     drumRow.setAttribute('data-instr', selection);
 
     machineRow.parentNode.append(machineRowClone);
-    instrumentOption.setAttribute('disabled', true);
+    instrumentOption.setAttribute('disabled', true); // disable option to prevent copies of players
     selector.selectedIndex = 0;
 }
 

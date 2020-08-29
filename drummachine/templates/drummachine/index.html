@@ -13,6 +13,23 @@
             </select>
             <button class="button is-light" id="kit-select-btn" onclick="loadKit(this)">Load Kit</button>
         </div>
+        <div class="control field is-grouped has-addons pb-1 pl-1">
+            <div>
+                <button class="button is-light" onclick="moveAddPanel(this)">
+                    <span class="icon is-large">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="add-instr-label">Add Instrument</span>
+                </button>
+            </div>
+            <div id="add-instr-panel" class="control field is-grouped has-addons hidden">
+                <label class="hidden" for="instrument-select">Select An Instrument To Add</label>
+                <select name="instrument-select" id="instrument-select" class="select">
+                    <option value="">Loading ...</option>
+                </select>
+                <button class="button is-light" id="add-instr-btn" onclick="addRow()">Add</button>
+            </div>
+        </div>
         <div class="field is-grouped has-addons pt-2">
             <div class="input">
                 <label class="hidden" for="bpm-input">BPM</label>
@@ -82,23 +99,6 @@
                     <div class="pad" data-selected="0" data-i="14" onclick="selectPad(this)"></div>
                     <div class="pad" data-selected="0" data-i="15" onclick="selectPad(this)"></div>
                     <div class="pad" data-selected="0" data-i="16" onclick="selectPad(this)"></div>
-                </div>
-            </div>
-            <div class="control field is-grouped has-addons pb-1 pl-1">
-                <div>
-                    <button class="button is-light" onclick="moveAddPanel(this)">
-                        <span class="icon is-large">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="add-instr-label">Add Instrument</span>
-                    </button>
-                </div>
-                <div id="add-instr-panel" class="control field is-grouped has-addons hidden">
-                    <label class="hidden" for="instrument-select">Select An Instrument To Add</label>
-                    <select name="instrument-select" id="instrument-select" class="select">
-                        <option value="">Loading ...</option>
-                    </select>
-                    <button class="button is-light" id="add-instr-btn" onclick="addRow()">Add</button>
                 </div>
             </div>
         </div>
