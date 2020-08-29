@@ -65,6 +65,23 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function addRow() {
+    const selection = document.getElementById('instrument-select').value;
+    const machineRow = document.getElementsByClassName('machine-row')[0];
+    const machineRowClone = machineRow.cloneNode(true);
+    const instrument = players[selection];
+    const info = machineRowClone.getElementsByClassName('instr-info-box')[0];
+    const name = info.getElementsByClassName('name')[0];
+    const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
+
+    machineRowClone.classList.remove('hidden');
+    info.setAttribute('data-instr', selection);
+    name.innerText = selection;
+    drumRow.setAttribute('data-instr', selection);
+
+    machineRow.parentNode.append(machineRowClone);
+}
+
 function muteInstr(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const instrument = btn.parentNode.parentNode.parentNode.getAttribute('data-instr');
@@ -88,8 +105,10 @@ function muteInstr(btn) {
 function moveAddPanel(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const panel = document.getElementById('add-instr-panel');
+    const label = document.getElementsByClassName('add-instr-label')[0];
 
     panel.classList.toggle('hidden');
+    label.classList.toggle('hidden');
     if (icon.getAttribute('data-icon') === 'plus') {
         icon.setAttribute('data-icon', 'times')
     } else {
@@ -153,15 +172,16 @@ function stopPattern() {
     playBtn.removeAttribute('disabled');
     pauseBtn.removeAttribute('disabled');
     stopBtn.setAttribute('disabled', true);
-    let lit = document.getElementsByClassName('highlighted');
-    Array.prototype.forEach.call(lit, (pad) => {
-        pad.classList.remove('highlighted');
-    })
+    
 
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.Transport.seconds = 0;
     index = 0;
+    let lit = document.getElementsByClassName('highlighted');
+    for (let i = 0; i < lit.length; i++) {
+        lit[i].classList.remove('highlighted');
+    };
 }
 
 function repeat(time) {
