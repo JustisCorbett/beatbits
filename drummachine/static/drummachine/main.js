@@ -36,7 +36,7 @@ function loadKit(btn) {
     ).then(response => {
         return response.json();
     }).then(data => {
-        let options = [];
+        let options = ['<option id="instr-none" value="none">Select an instrument...</option>',];
         instruments = data.instruments;
         instruments.forEach((instrument) => {
             let player = new Tone.Player(instrument.path).toDestination();
@@ -45,7 +45,7 @@ function loadKit(btn) {
                 'player': player,
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             };
-            options.push('<option value="'+ instrument.name +'">'+ instrument.name +'</option>');
+            options.push('<option id="instr-'+ instrument.name +'" value="'+ instrument.name +'">'+ instrument.name +'</option>');
         });
         instrSelect.innerHTML = options.join('')
         info.setAttribute('data-instr', instruments[0].name);
@@ -66,13 +66,15 @@ document.documentElement.addEventListener('mousedown', () => {
 });
 
 function addRow() {
-    const selection = document.getElementById('instrument-select').value;
+    const selector = document.getElementById('instrument-select');
+    const selection = selector.value;
+    if (selection === "none") return;
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
-    const instrument = players[selection];
     const info = machineRowClone.getElementsByClassName('instr-info-box')[0];
     const name = info.getElementsByClassName('name')[0];
     const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
+    const instrumentOption = document.getElementById('instr-' + selection);
 
     machineRowClone.classList.remove('hidden');
     info.setAttribute('data-instr', selection);
@@ -80,6 +82,8 @@ function addRow() {
     drumRow.setAttribute('data-instr', selection);
 
     machineRow.parentNode.append(machineRowClone);
+    instrumentOption.setAttribute('disabled', true);
+    selector.selectedIndex = 0;
 }
 
 function muteInstr(btn) {
