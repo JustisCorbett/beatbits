@@ -176,6 +176,7 @@ body {
 
 .highlighted {
     border-color: #009DFF;
+    background-color: #009DFF !important;
 }
 
 .selected {

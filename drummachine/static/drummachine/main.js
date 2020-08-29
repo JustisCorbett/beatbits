@@ -33,7 +33,7 @@ function loadKit(btn) {
     instrSelect.classList.add('is-loading');
     addBtn.classList.add('is-loading');
     btn.classList.add('is-loading');
-
+    // clear all existing rows
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
     };
@@ -90,6 +90,8 @@ function addRow() {
     machineRow.parentNode.append(machineRowClone);
     instrumentOption.setAttribute('disabled', true); // disable option to prevent copies of players
     selector.selectedIndex = 0;
+    // restart transport to play added row
+    stopPattern();
 }
 
 function muteInstr(btn) {
@@ -119,6 +121,8 @@ function moveAddPanel(btn) {
 
     panel.classList.toggle('hidden');
     label.classList.toggle('hidden');
+    btn.classList.toggle('is-light');
+    btn.classList.toggle('is-dark');
     if (icon.getAttribute('data-icon') === 'plus') {
         icon.setAttribute('data-icon', 'times')
     } else {
