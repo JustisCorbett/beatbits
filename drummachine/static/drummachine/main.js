@@ -71,6 +71,18 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function removeInstr(btn) {
+    const infoBox = btn.parentNode.parentNode.parentNode;
+    const machineRow = infoBox.parentNode;
+    const instrument = infoBox.getAttribute('data-instr');
+    const instrOption = document.getElementById('instr-' + instrument)
+
+    machineRow.remove();
+    instrOption.removeAttribute('disabled');
+    // restart transport to stop removed row from playing
+    stopPattern();
+}
+
 function addRow() {
     const selector = document.getElementById('instrument-select');
     const selection = selector.value;
@@ -192,7 +204,8 @@ function stopPattern() {
     Tone.Transport.cancel();
     Tone.Transport.seconds = 0;
     index = 0;
-    let lit = document.getElementsByClassName('highlighted');
+    // must use querySelectorAll because it returns a static list
+    const lit = document.querySelectorAll(".highlighted");
     for (let i = 0; i < lit.length; i++) {
         lit[i].classList.remove('highlighted');
     };
@@ -209,11 +222,11 @@ function repeat(time) {
         player = players[instrName].player,
         isSelected = (pad.getAttribute('data-selected') === "1" );
     if (previous !== null) {
+        pad.classList.add('highlighted');
         previous.classList.remove('highlighted');
-        pad.classList.add('highlighted');
     } else {
-        last.classList.remove('highlighted');
         pad.classList.add('highlighted');
+        last.classList.remove('highlighted');
     };
     
     if (isSelected) player.start(time);
