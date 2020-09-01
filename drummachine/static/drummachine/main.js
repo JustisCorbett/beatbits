@@ -157,7 +157,16 @@ function movePanel(btn) {
 }
 
 function selectPad(pad){
-    instrument = pad.parentNode.getAttribute('data-instr');
+    let note = pad.getAttribute('data-i');
+    let instrumentName = pad.parentNode.getAttribute('data-instr');
+    let instrument = players[instrumentName];
+    
+    if (instrument.pattern[note] === 0) {
+        instrument.pattern[note] = 1;
+    } else {
+        instrument.pattern[note] = 0;
+    }
+    
     if (pad.getAttribute('data-selected') === "0") {
         pad.setAttribute('data-selected', "1");
         pad.classList.add('selected');
@@ -191,7 +200,6 @@ function pausePattern() {
     
     Tone.Transport.pause();
     Tone.Transport.cancel();
-    
 }
 
 function stopPattern() {
@@ -216,11 +224,10 @@ function repeat(time) {
   for (let i = 0; i < rows.length; i++) {
     let row = rows[i],
         pad = row.querySelector(`div:nth-child(${step + 1})`),
-        previous = pad.previousElementSibling;
-        last = row.querySelector(`div:last-child`);
+        previous = pad.previousElementSibling,
+        last = row.querySelector(`div:last-child`),
         instrName = row.getAttribute('data-instr'),
-        player = players[instrName].player,
-        isSelected = (pad.getAttribute('data-selected') === "1" );
+        player = players[instrName].player;
     if (previous !== null) {
         pad.classList.add('highlighted');
         previous.classList.remove('highlighted');
@@ -228,8 +235,7 @@ function repeat(time) {
         pad.classList.add('highlighted');
         last.classList.remove('highlighted');
     };
-    
-    if (isSelected) player.start(time);
+    if (pad.getAttribute('data-selected') === '1') player.start(time);
   }
   index++;
 
