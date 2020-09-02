@@ -71,6 +71,15 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function changeVolume(slider) {
+    const instrumentName = slider.parentNode.parentNode.parentNode.getAttribute('data-instr');
+    const player = players[instrumentName].player;
+    const display = slider.nextElementSibling;
+
+    player.volume.value = slider.value;
+    display.innerText = slider.value + 'db';
+}
+
 function removeInstr(btn) {
     const infoBox = btn.parentNode.parentNode.parentNode;
     const machineRow = infoBox.parentNode;
