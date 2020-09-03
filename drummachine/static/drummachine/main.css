@@ -119,6 +119,7 @@ body {
 .drum-row {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     flex-wrap: nowrap;
     flex: 1;
     border: 0.5rem #7A7A7A solid;
@@ -156,6 +157,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: start;
+    flex-wrap: wrap;
     background-color: #7A7A7A;
     padding: 0.5rem;
 }
