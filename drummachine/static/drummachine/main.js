@@ -65,6 +65,21 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function saveBit() {
+    const bpm = Tone.Transport.bpm.value;
+    const kit = document.getElementById('kits').value;
+    const rows = document.querySelectorAll('.drum-row');
+    let instruments = [];
+    let rack = {};
+    rows.forEach((row) => {
+        name = row.getAttribute('data-instr');
+        if (name !== 'none') instruments.push(name);
+    });
+    instruments.forEach((instrument) => {
+        rack[instrument] = players[instrument];
+    });
+}
+
 function changePitch(slider) {
     const instrumentName = slider.parentNode.parentNode.parentNode.getAttribute('data-instr');
     const player = players[instrumentName].player;
@@ -84,9 +99,8 @@ function changeVolume(slider) {
 }
 
 function removeInstr(btn) {
-    const infoBox = btn.parentNode.parentNode.parentNode;
-    const machineRow = infoBox.parentNode;
-    const instrument = infoBox.getAttribute('data-instr');
+    const machineRow = btn.parentNode.parentNode.parentNode.parentNode;
+    const instrument = machineRow.getAttribute('data-instr');
     const instrOption = document.getElementById('instr-' + instrument)
 
     machineRow.remove();
@@ -119,7 +133,7 @@ function addRow() {
 
 function muteInstr(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
-    const instrument = btn.parentNode.parentNode.parentNode.getAttribute('data-instr');
+    const instrument = btn.parentNode.parentNode.parentNode.parentNode.getAttribute('data-instr');
     const player = players[instrument].player;
     btn.classList.add('is-loading');
     if (player.mute === true) {
@@ -137,6 +151,37 @@ function muteInstr(btn) {
     btn.classList.remove('is-loading');
 }
 
+function moveKitPanel(btn) {
+    const icon = btn.getElementsByTagName('svg')[0];
+    const panel = document.getElementById('kit-select');
+    const label = document.getElementsByClassName('kit-label')[0];
+
+    panel.classList.toggle('hidden');
+    label.classList.toggle('hidden');
+    if (icon.getAttribute('data-icon') === 'plus') {
+        icon.setAttribute('data-icon', 'times')
+    } else {
+        icon.setAttribute('data-icon', 'plus')
+    };
+}
+
+function moveNamePanel(btn) {
+    const icon = btn.getElementsByTagName('svg')[0];
+    const panel = document.getElementById('name-panel');
+    const label = document.getElementsByClassName('name-label')[0];
+    const input = document.getElementById('name-input');
+    const name = document.getElementById('name').innerText;
+
+    input.setAttribute('placeholder', name);
+    panel.classList.toggle('hidden');
+    label.classList.toggle('hidden');
+    if (icon.getAttribute('data-icon') === 'plus') {
+        icon.setAttribute('data-icon', 'times')
+    } else {
+        icon.setAttribute('data-icon', 'plus')
+    };
+}
+
 function moveAddPanel(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const panel = document.getElementById('add-instr-panel');
@@ -144,8 +189,6 @@ function moveAddPanel(btn) {
 
     panel.classList.toggle('hidden');
     label.classList.toggle('hidden');
-    btn.classList.toggle('is-light');
-    btn.classList.toggle('is-dark');
     if (icon.getAttribute('data-icon') === 'plus') {
         icon.setAttribute('data-icon', 'times')
     } else {
