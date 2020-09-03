@@ -98,12 +98,11 @@ body {
 
 .machine-row {
     display: flex;
-    flex-direction: row;
-    justify-content: space;
+    flex-direction: column;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     border: 4px #292929 solid;
     border-radius: 10px;
-    
 }
 
 .drum-row {
@@ -111,8 +110,13 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     flex: 1;
-    border: 2px #292929 solid;
-    height: 6rem;
+    border: 0.5rem #ADADAD solid;
+    border-radius: 0px 10px 0px 0px;
+    height: 7rem;
+    min-width: fit-content;
+    padding: 0.25rem;
+    margin-top: -4px;
+    margin-bottom: -4px;
 }
 
 .bottom-controls {
@@ -126,32 +130,36 @@ body {
 .instr-info-box {
     background-color: #ADADAD;
     color: #292929;
-    padding: 0.25rem;
-    border: 2px #292929 solid;
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
     width: fit-content;
-    height: 6rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+}
+
+.instr-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: start;
+    background-color: #ADADAD;
+    padding: 0.5rem;
+}
+
+.side-controls {
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
 }
 
-.instr-controls {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    background-color: #363636;
-    border-radius: 15px;
-}
-
-.side-controls {
-    border-right: 2px #292929 solid;
-}
-
 .name {
     padding: 0.15rem;
+    padding-right: 1rem;
+    padding-left: 0.5rem;
     font-size: 1.25rem;
     font-weight: 500;
 }
@@ -184,24 +192,22 @@ body {
 }
 
 .thin-btn {
-    color: #ADADAD;
+    color: #292929;
     font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 0.15rem;
-    padding-right: 0px;
-    margin-left: 0.15rem;
-    width: 1.75rem;
-    height: 100%;
-    background-color: #363636;
-    border: 2px #292929 solid;
-    border-radius: 10px;
+    margin-top: -4px;
+    width: 100%;
+    height: 1.5rem;
+    background-color: #525252;
+    border: 2px #ADADAD solid;
+    border-radius: 0px 0px 10px 10px;
 }
 
 .thin-btn:hover {
     background-color: #525252;
-    border: 2px #ADADAD solid;
+    border: 2px #363636 solid;
     cursor: pointer;
 }
 

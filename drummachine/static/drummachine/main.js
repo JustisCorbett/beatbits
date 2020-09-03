@@ -165,14 +165,12 @@ function moveAddPanel(btn) {
 function movePanel(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const controls = btn.previousElementSibling;
-    const name = controls.previousElementSibling;
 
     controls.classList.toggle('hidden');
-    name.classList.toggle('hidden');
-    if (icon.getAttribute('data-icon') === 'angle-right') {
-        icon.setAttribute('data-icon', 'angle-left');
+    if (icon.getAttribute('data-icon') === 'angle-down') {
+        icon.setAttribute('data-icon', 'angle-up');
     } else {
-        icon.setAttribute('data-icon', 'angle-right');
+        icon.setAttribute('data-icon', 'angle-down');
     };
 }
 
