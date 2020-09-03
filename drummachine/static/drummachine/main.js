@@ -49,9 +49,7 @@ function loadKit(btn) {
             players[instrument.name] = {
                 'path': instrument.path,
                 'player': player,
-                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                'velocities': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                'pitches': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             };
             options.push('<option id="instr-'+ instrument.name +'" value="'+ instrument.name +'">'+ instrument.name +'</option>');
         });
@@ -236,6 +234,7 @@ function stopPattern() {
     };
 }
 
+// TODO: use pattern array in player object instead of selected pad elements!!!!
 function repeat(time) {
   let step = index % 16;
   for (let i = 0; i < rows.length; i++) {
