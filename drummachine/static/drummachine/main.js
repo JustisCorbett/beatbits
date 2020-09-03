@@ -109,13 +109,12 @@ function addRow() {
     if (selection === "none") return; // stop function if default option is selected
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
-    const info = machineRowClone.getElementsByClassName('instr-info-box')[0];
-    const name = info.getElementsByClassName('name')[0];
+    const name = machineRowClone.getElementsByClassName('name')[0];
     const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
     const instrumentOption = document.getElementById('instr-' + selection);
 
     machineRowClone.classList.remove('hidden');
-    info.setAttribute('data-instr', selection);
+    machineRowClone.setAttribute('data-instr', selection);
     name.innerText = selection;
     drumRow.setAttribute('data-instr', selection);
 
@@ -137,7 +136,7 @@ function muteInstr(btn) {
         player.mute = true;
     };
     btn.classList.toggle('is-dark');
-    btn.classList.toggle('is-light');
+    btn.classList.toggle('is-grey');
     if (icon.getAttribute('data-icon') === 'volume-up') {
         icon.setAttribute('data-icon', 'volume-mute');
     } else {
