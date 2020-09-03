@@ -26,9 +26,6 @@ function loadKit(btn) {
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
-    const info = machineRow.getElementsByClassName('instr-info-box')[0];
-    const name = info.getElementsByClassName('name')[0];
-    const drumRow = machineRow.getElementsByClassName('drum-row')[0];
 
     instrSelect.classList.add('is-loading');
     addBtn.classList.add('is-loading');
@@ -54,9 +51,6 @@ function loadKit(btn) {
             options.push('<option id="instr-'+ instrument.name +'" value="'+ instrument.name +'">'+ instrument.name +'</option>');
         });
         instrSelect.innerHTML = options.join('')
-        info.setAttribute('data-instr', instruments[0].name);
-        name.innerText = instruments[0].name;
-        drumRow.setAttribute('data-instr', instruments[0].name);
         btn.classList.remove('is-loading');
         addBtn.classList.remove('is-loading');
         instrSelect.classList.remove('is-loading');
@@ -181,7 +175,7 @@ function selectPad(pad){
     } else {
         instrument.pattern[note] = 0;
     }
-    
+
     if (pad.getAttribute('data-selected') === "0") {
         pad.setAttribute('data-selected', "1");
         pad.classList.add('selected');
@@ -237,21 +231,24 @@ function stopPattern() {
 // TODO: use pattern array in player object instead of selected pad elements!!!!
 function repeat(time) {
   let step = index % 16;
-  for (let i = 0; i < rows.length; i++) {
+  // start iteration at 1 to ignore hidden template row
+  for (let i = 1; i < rows.length; i++) {
     let row = rows[i],
-        pad = row.querySelector(`div:nth-child(${step + 1})`),
-        previous = pad.previousElementSibling,
-        last = row.querySelector(`div:last-child`),
+        pads = row.getElementsByTagName('div'),
+        pad = pads[step],
+        previous = pads[(step - 1)],
+        last = pads[(pads.length - 1)],
         instrName = row.getAttribute('data-instr'),
+        pattern = players[instrName].pattern,
         player = players[instrName].player;
-    if (previous !== null) {
+    if (previous !== undefined) {
         pad.classList.add('highlighted');
         previous.classList.remove('highlighted');
     } else {
         pad.classList.add('highlighted');
         last.classList.remove('highlighted');
     };
-    if (pad.getAttribute('data-selected') === '1') player.start(time);
+    if (pattern[step] == 1) player.start(time);
   }
   index++;
 
