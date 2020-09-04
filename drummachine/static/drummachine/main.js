@@ -103,17 +103,20 @@ function saveBit() {
     const savingText = document.getElementById('saving-text');
     let instruments = [];
     let rack = {};
-
+    console.log(bitName);
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
-    if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
-    if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
+    if (loadingText.classList.contains('hidden') === false) loadingText.classList.add('hidden');
+    if (savingText.classList.contains('hidden') === true) savingText.classList.remove('hidden');
 
     rows.forEach((row) => {
         name = row.getAttribute('data-instr');
         if (name !== 'none') instruments.push(name);
     });
     instruments.forEach((instrument) => {
-        rack[instrument] = players[instrument];
+        rack[instrument] = {
+            path: players[instrument].path,
+            pattern: players[instrument].pattern,
+        };
     });
 
     fetch('save_bit', {
@@ -124,10 +127,10 @@ function saveBit() {
             'content-type': 'application/json'
         }),
         body: JSON.stringify({
-            Name: bitName,
-            Bpm: bpm,
-            Kit: kit,
-            Rack: rack,
+            name: bitName,
+            bpm: bpm,
+            kit: kit,
+            rack: rack,
         })
     }).then(response => {
         if (response.ok) {

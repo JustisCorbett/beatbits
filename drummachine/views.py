@@ -90,3 +90,28 @@ def load_sound(request, url):
     """ Load sounds on server to avoid CORS blocking and return as HttpResponse"""
     res = requests.get(url)
     return HttpResponse(res)
+
+
+def save_bit(request):
+    """ Save Bit from json as Rack in db """
+    if request.method == "POST":
+        user = request.user
+        data = json.loads(request.body)
+        name = data.name
+        is_duplicate = Rack.objects.get(user=user, name=name)
+
+        if is_duplicate:
+            return JsonResponse({
+                "message": "Error: You already have a bit with that name!"
+            }, status=400)
+
+        rack = Rack(
+            user=user,
+            name=name,
+            config=data
+        )
+        rack.save()
+
+        return JsonResponse({
+            "message": "Save Successful!"
+        }, status=200)
