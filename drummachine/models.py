@@ -9,6 +9,9 @@ class Rack(models.Model):
     name = models.CharField(max_length=25, default="untitled")
     config = models.JSONField()
 
+    class Meta:
+        unique_together = ['user', 'name']
+
     def __str__(self):
         return "%s's Rack %s" % (self.user, self.name)
 

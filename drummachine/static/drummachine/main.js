@@ -133,12 +133,9 @@ function saveBit() {
             rack: rack,
         })
     }).then(response => {
-        if (response.ok) {
-            return null;
-        } else {
-            return response.json();
-        }
-    }).then((json) => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
         if (json) {
             alert(json.message);
         }

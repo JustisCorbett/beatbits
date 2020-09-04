@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.db import IntegrityError
 import requests
 import json
 
@@ -97,21 +98,23 @@ def save_bit(request):
     if request.method == "POST":
         user = request.user
         data = json.loads(request.body)
-        name = data.name
-        is_duplicate = Rack.objects.get(user=user, name=name)
+        name = data["name"]
 
-        if is_duplicate:
-            return JsonResponse({
-                "message": "Error: You already have a bit with that name!"
-            }, status=400)
 
         rack = Rack(
             user=user,
             name=name,
             config=data
         )
-        rack.save()
+        try:
+            rack.save()
+        except IntegrityError:
+            return JsonResponse({
+                "message": "Error: You already have a bit with that name!"
+            }, status=400)
 
         return JsonResponse({
             "message": "Save Successful!"
         }, status=200)
+
+        
