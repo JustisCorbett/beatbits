@@ -26,6 +26,8 @@ function loadKit(btn) {
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
     const overlay = document.getElementById('loading-overlay');
+    const options = document.getElementsByClassName('instrument-select')
+    const optionParent = document.getElementsByClassName('instrument-select')[0].parentNode;
     
 
     loadedKit = kit;
@@ -34,6 +36,10 @@ function loadKit(btn) {
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
     };
+    for (i = options.length; i > 1; i--) {
+        optionParent.removeChild(optionParent.lastChild);
+    }
+
 
     fetch(('load_kit/' + kit)
     ).then(response => {
@@ -48,7 +54,6 @@ function loadKit(btn) {
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             };
             let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
-            let optionParent = document.getElementsByClassName('instrument-select')[0].parentNode;
             let nameText = optionClone.getElementsByClassName('name')[0];
             optionClone.classList.remove('hidden');
             optionClone.setAttribute('data-name', instrument.name);
@@ -73,16 +78,17 @@ document.documentElement.addEventListener('mousedown', () => {
 function changeName() {
     const nameText = document.getElementById('name-input').value;
     let name = document.getElementById('name');
+    let btn = document.getElementById('name-panel-button');
     console.log(name.innerHTML);
     if (nameText.length > 25 || nameText.length < 4) {
         alert('Name must be between 4 and 25 characters');
         return null;
     } else {
         name.innerText = nameText;
-        moveNamePanel()
+        moveNamePanel(btn)
     };
 }
-
+// TODO finish
 function saveBit() {
     const bpm = Tone.Transport.bpm.value;
     const kit = loadedKit;
@@ -296,7 +302,6 @@ function stopPattern() {
     };
 }
 
-// TODO: use pattern array in player object instead of selected pad elements!!!!
 function repeat(time) {
   let step = index % 16;
   // start iteration at 1 to ignore hidden template row
