@@ -131,7 +131,7 @@ body {
 }
 
 .angle {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 .add-instr-label {
@@ -293,7 +293,7 @@ body {
 
 .thin-btn {
     color: #292929;
-    font-size: 2.5rem;
+    font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
