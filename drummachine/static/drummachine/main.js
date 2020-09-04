@@ -26,12 +26,16 @@ function loadKit(btn) {
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
     const overlay = document.getElementById('loading-overlay');
+    const loadingText = document.getElementById('loading-text');
+    const savingText = document.getElementById('saving-text');
     const options = document.getElementsByClassName('instrument-select')
     const optionParent = document.getElementsByClassName('instrument-select')[0].parentNode;
     
 
     loadedKit = kit;
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
+    if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
+    if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
     // clear all existing rows
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
@@ -79,7 +83,6 @@ function changeName() {
     const nameText = document.getElementById('name-input').value;
     let name = document.getElementById('name');
     let btn = document.getElementById('name-panel-button');
-    console.log(name.innerHTML);
     if (nameText.length > 25 || nameText.length < 4) {
         alert('Name must be between 4 and 25 characters');
         return null;
@@ -90,11 +93,21 @@ function changeName() {
 }
 // TODO finish
 function saveBit() {
+    const csrftoken = getCookie('csrftoken');
+    const bitName = document.getElementById('name').innerText;
     const bpm = Tone.Transport.bpm.value;
     const kit = loadedKit;
     const rows = document.querySelectorAll('.drum-row');
+    const overlay = document.getElementById('loading-overlay');
+    const loadingText = document.getElementById('loading-text');
+    const savingText = document.getElementById('saving-text');
     let instruments = [];
     let rack = {};
+
+    if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
+    if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
+    if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
+
     rows.forEach((row) => {
         name = row.getAttribute('data-instr');
         if (name !== 'none') instruments.push(name);
@@ -102,6 +115,33 @@ function saveBit() {
     instruments.forEach((instrument) => {
         rack[instrument] = players[instrument];
     });
+
+    fetch('save_bit', {
+        method: 'POST',
+        credentials: 'include',
+        headers: new Headers ({
+            "X-CSRFToken": csrftoken,
+            'content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+            Name: bitName,
+            Bpm: bpm,
+            Kit: kit,
+            Rack: rack,
+        })
+    }).then(response => {
+        if (response.ok) {
+            return null;
+        } else {
+            return response.json();
+        }
+    }).then((json) => {
+        if (json) {
+            alert(json.message);
+        }
+        overlay.classList.add('hidden');
+        return null;
+    })
 }
 
 function changePitch(slider) {
