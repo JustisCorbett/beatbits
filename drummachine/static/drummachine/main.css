@@ -102,13 +102,37 @@ body {
     align-content: center;
 }
 
-.options {
+.instrument-list-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
-    width: fit-content;
     flex-wrap: nowrap;
+    margin: 0rem 1rem;
+}
+
+.instrument-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    background: #292929;
+    border: 0.5rem #ADADAD solid;
+    padding: 1rem 2rem 0rem 2rem;
+}
+
+.instrument-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    background: #ADADAD;
+    border-radius: 10px;
+    width: 100%;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .machine-container {

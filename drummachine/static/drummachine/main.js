@@ -1,5 +1,6 @@
 
 let players = {};
+let loadedKit = "";
 let rows = document.querySelectorAll('.drum-row');
 let index = 0;
 
@@ -21,17 +22,15 @@ window.onload = () => {
 
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
-    const addBtn = document.getElementById('add-instr-btn');
     const instrSelect = document.getElementById('instrument-select');
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
     const overlay = document.getElementById('loading-overlay');
+    
 
+    loadedKit = kit;
     if (overlay.classList.contains('hidden') === false) overlay.classList.add('hidden');
-    instrSelect.classList.add('is-loading');
-    addBtn.classList.add('is-loading');
-    btn.classList.add('is-loading');
     // clear all existing rows
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
@@ -41,7 +40,6 @@ function loadKit(btn) {
     ).then(response => {
         return response.json();
     }).then(data => {
-        let options = ['<option id="instr-none" value="none">Select an instrument...</option>',];
         instruments = data.instruments;
         instruments.forEach((instrument) => {
             let player = new Tone.Player(instrument.path).toDestination();
@@ -50,12 +48,14 @@ function loadKit(btn) {
                 'player': player,
                 'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             };
-            options.push('<option id="instr-'+ instrument.name +'" value="'+ instrument.name +'">'+ instrument.name +'</option>');
+            let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
+            let optionParent = document.getElementsByClassName('instrument-select')[0].parentNode;
+            let nameText = optionClone.getElementsByClassName('name')[0];
+            optionClone.classList.remove('hidden');
+            optionClone.setAttribute('data-name', instrument.name);
+            nameText.innerText = instrument.name;
+            optionParent.append(optionClone);
         });
-        instrSelect.innerHTML = options.join('')
-        btn.classList.remove('is-loading');
-        addBtn.classList.remove('is-loading');
-        instrSelect.classList.remove('is-loading');
         overlay.classList.add('hidden');
         return null;
     });
@@ -71,7 +71,7 @@ document.documentElement.addEventListener('mousedown', () => {
 
 function saveBit() {
     const bpm = Tone.Transport.bpm.value;
-    const kit = document.getElementById('kits').value;
+    const kit = loadedKit;
     const rows = document.querySelectorAll('.drum-row');
     let instruments = [];
     let rack = {};
@@ -105,23 +105,28 @@ function changeVolume(slider) {
 function removeInstr(btn) {
     const machineRow = btn.parentNode.parentNode.parentNode.parentNode;
     const instrument = machineRow.getAttribute('data-instr');
-    const instrOption = document.getElementById('instr-' + instrument)
+    const selector = document.querySelector('[data-name="' + instrument + '"]');
+    const selectorBtn = selector.getElementsByClassName('button')[1];
 
     machineRow.remove();
-    instrOption.removeAttribute('disabled');
+    selectorBtn.removeAttribute('disabled');
     // restart transport to stop removed row from playing
     stopPattern();
 }
 
-function addRow() {
-    const selector = document.getElementById('instrument-select');
-    const selection = selector.value;
-    if (selection === "none") return; // stop function if default option is selected
+function playSample(btn) {
+    const selection = btn.parentNode.parentNode.getAttribute('data-name');
+    player = players[selection].player;
+
+    player.start();
+}
+
+function addRow(btn) {
+    const selection = btn.parentNode.parentNode.getAttribute('data-name');
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
     const name = machineRowClone.getElementsByClassName('name')[0];
     const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
-    const instrumentOption = document.getElementById('instr-' + selection);
 
     machineRowClone.classList.remove('hidden');
     machineRowClone.setAttribute('data-instr', selection);
@@ -129,8 +134,7 @@ function addRow() {
     drumRow.setAttribute('data-instr', selection);
 
     machineRow.parentNode.append(machineRowClone);
-    instrumentOption.setAttribute('disabled', true); // disable option to prevent copies of players
-    selector.selectedIndex = 0;
+    btn.setAttribute('disabled', true); // disable option to prevent copies of players
     // restart transport to play added row
     stopPattern();
 }
@@ -187,16 +191,19 @@ function moveNamePanel(btn) {
 }
 
 function moveAddPanel(btn) {
-    const icon = btn.getElementsByTagName('svg')[0];
+    const icons = btn.getElementsByTagName('svg');
     const panel = document.getElementById('add-instr-panel');
     const label = document.getElementsByClassName('add-instr-label')[0];
 
     panel.classList.toggle('hidden');
     label.classList.toggle('hidden');
-    if (icon.getAttribute('data-icon') === 'plus') {
-        icon.setAttribute('data-icon', 'times')
-    } else {
-        icon.setAttribute('data-icon', 'plus')
+    for (i = 0; i < icons.length; i++) {
+        icon = icons[i];
+        if (icon.getAttribute('data-icon') === 'angle-down') {
+            icon.setAttribute('data-icon', 'angle-up')
+        } else {
+            icon.setAttribute('data-icon', 'angle-down')
+        };
     };
 }
 
