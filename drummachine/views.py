@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db import IntegrityError
+from django.urls import reverse
 import requests
 import json
 
