@@ -22,7 +22,6 @@ window.onload = () => {
 
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
-    const instrSelect = document.getElementById('instrument-select');
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
@@ -30,7 +29,7 @@ function loadKit(btn) {
     
 
     loadedKit = kit;
-    if (overlay.classList.contains('hidden') === false) overlay.classList.add('hidden');
+    if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     // clear all existing rows
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
@@ -56,6 +55,8 @@ function loadKit(btn) {
             nameText.innerText = instrument.name;
             optionParent.append(optionClone);
         });
+        return null;
+    }).then(() => {
         overlay.classList.add('hidden');
         return null;
     });
