@@ -272,9 +272,40 @@ body {
     cursor: pointer;
 }
 
+.loading-overlay {
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 25, 25, .7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.loading-icon {
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.loading-text {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 0.15rem;
+    font-size: 4rem;
+    font-weight: 700;
+    color: white;
+}
+
 @media only screen and (max-width: 767px) {
     .option-container{
-        margin: 0rem !important;
+        margin: 2rem 0rem 0rem 0rem !important;
     }
     .machine-container{
         margin: 0rem !important;

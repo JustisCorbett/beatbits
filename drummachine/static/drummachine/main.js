@@ -26,7 +26,9 @@ function loadKit(btn) {
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
+    const overlay = document.getElementById('loading-overlay');
 
+    if (overlay.classList.contains('hidden') === false) overlay.classList.add('hidden');
     instrSelect.classList.add('is-loading');
     addBtn.classList.add('is-loading');
     btn.classList.add('is-loading');
@@ -54,8 +56,10 @@ function loadKit(btn) {
         btn.classList.remove('is-loading');
         addBtn.classList.remove('is-loading');
         instrSelect.classList.remove('is-loading');
+        overlay.classList.add('hidden');
         return null;
     });
+    
 }
 
 
