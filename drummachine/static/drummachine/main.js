@@ -70,6 +70,19 @@ document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
 });
 
+function changeName() {
+    const nameText = document.getElementById('name-input').value;
+    let name = document.getElementById('name');
+    console.log(name.innerHTML);
+    if (nameText.length > 25 || nameText.length < 4) {
+        alert('Name must be between 4 and 25 characters');
+        return null;
+    } else {
+        name.innerText = nameText;
+        moveNamePanel()
+    };
+}
+
 function saveBit() {
     const bpm = Tone.Transport.bpm.value;
     const kit = loadedKit;
