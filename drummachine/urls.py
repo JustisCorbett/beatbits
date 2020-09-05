@@ -9,5 +9,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("load_sound/<str:url>", views.load_sound, name="load_sound"),
     path("load_kit/<int:kit>", views.load_kit, name="load_kit"),
-    path("save_bit", views.save_bit, name="save_bit")
+    path("save_bit", views.save_bit, name="save_bit"),
+    path("new_bit", views.new_bit, name="new_bit")
 ]
