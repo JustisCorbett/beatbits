@@ -103,7 +103,6 @@ function saveBit() {
     const savingText = document.getElementById('saving-text');
     let instruments = [];
     let rack = {};
-    console.log(bitName);
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     if (loadingText.classList.contains('hidden') === false) loadingText.classList.add('hidden');
     if (savingText.classList.contains('hidden') === true) savingText.classList.remove('hidden');
@@ -135,7 +134,6 @@ function saveBit() {
     }).then(response => {
         return response.json();
     }).then(json => {
-        console.log(json);
         if (json) {
             alert(json.message);
         }
