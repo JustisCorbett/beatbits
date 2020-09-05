@@ -1,5 +1,7 @@
 {% extends "drummachine/layout.html" %}
 
+
+
 {% block title %}BeatBits{% endblock %}
 
 {% block body %}
@@ -13,8 +15,9 @@
                     <div class="name">
                         {{ bit.name }}
                     </div>
-                    <div class="user-name" href="{% url 'user_bits' bit.user %}">
-                        Created by {{ bit.user }}
+                    <div class="user-name">
+                        <span>Created by&nbsp;</span>
+                        <a href="{% url 'user_bits' bit.user %}"> {{ bit.user }}</a>
                     </div>
                     <button class="button is-light" onclick="loadBit(this)">Load Bit</button>
                 </div>

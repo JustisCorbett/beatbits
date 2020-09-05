@@ -1,7 +1,8 @@
 {% extends "drummachine/layout.html" %}
+{% load static from static %}
 
 {% block script %}
-<script src="{% static 'drummachine/newbit.js' %}"></script>
+    <script src="{% static 'drummachine/newbit.js' %}"></script>
 {% endblock %}
 
 {% block title %}New Bit{% endblock %}
@@ -11,8 +12,8 @@
         <div class="name-container">
             <span class="bit-name" id="name">Untitled Bit</span>
         </div>
-        <div class="top-controls">
-            <div class="control field pt-1 options">
+        <div class="top-controls full-width">
+            <div class="control field options">
                 <div>
                     <button id="name-panel-button" class="button is-light" onclick="moveNamePanel(this)">
                         <span class="icon is-large">
@@ -27,7 +28,7 @@
                     <button class="button is-light" id="add-name-btn" onclick="changeName()">Confirm</button>
                 </div>
             </div>
-            <div class="control field pt-1 options">
+            <div class="control field options">
                 <div>
                     <button class="button is-light" onclick="moveKitPanel(this)">
                         <span class="icon is-large">
@@ -47,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="pt-1 instrument-list-container">
+        <div class="pt-1 instrument-list-container full-width">
             <div id="add-instr-panel" class="instrument-list hidden">
                 <div data-name="none" class="instrument-select hidden" >
                     <div class="name">
@@ -67,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-light" onclick="moveAddPanel(this)">
+            <button class="button is-light full-width" onclick="moveAddPanel(this)">
                 <span class="icon is-large angle">
                     <i class="fas fa-angle-down"></i>
                 </span>
@@ -79,8 +80,8 @@
         </div>
     </div>
     <div class="machine-container py-2">
-        <div id="drum-machine" class="drum-machine">
-            <div class="machine-row hidden" data-instr="none">
+        <div id="drum-machine" class="drum-machine full-width">
+            <div class="machine-row hidden full-width" data-instr="none">
                 <div class="instr-info-box">
                     <div class="side-controls">
                         <div>
