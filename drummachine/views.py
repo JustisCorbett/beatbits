@@ -11,10 +11,10 @@ from .models import Rack, Kit, Instrument
 
 
 def index(request):
-    """ Render index with all kits to choose from """
-    kits = Kit.objects.all()
+    """ Render index with all bits to choose from """
+    bits = Rack.objects.all()
     return render(request, "drummachine/index.html", {
-        "kits": kits
+        "bits": bits
     })
 
 
@@ -95,6 +95,13 @@ def load_sound(request, url):
     res = requests.get(url)
     return HttpResponse(res)
 
+
+def new_bit(request):
+    """ Render new bit maker with all kits to choose from """
+    kits = Kit.objects.all()
+    return render(request, "drummachine/newbit.html", {
+        "kits": kits
+    })
 
 def save_bit(request):
     """ Save Bit from json as Rack in db """
