@@ -96,12 +96,17 @@ def load_sound(request, url):
     return HttpResponse(res)
 
 
+def user_bits(request, user):
+    """ Render page with all of a user's bits """
+    return none
+
 def new_bit(request):
     """ Render new bit maker with all kits to choose from """
     kits = Kit.objects.all()
     return render(request, "drummachine/newbit.html", {
         "kits": kits
     })
+
 
 def save_bit(request):
     """ Save Bit from json as Rack in db """

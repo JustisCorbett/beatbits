@@ -13,8 +13,8 @@
                     <div class="name">
                         {{ bit.name }}
                     </div>
-                    <div class="user-name">
-                        Created by <a href="{% url 'user_bits' bit.user %}">{{ bit.user }}</a>
+                    <div class="user-name" href="{% url 'user_bits' bit.user %}">
+                        Created by {{ bit.user }}
                     </div>
                     <button class="button is-light" onclick="loadBit(this)">Load Bit</button>
                 </div>
