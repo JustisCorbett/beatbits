@@ -20,6 +20,17 @@ window.onload = () => {
     loadKit(btn);
 }
 
+document.addEventListener("keydown", event => {
+    if (event.isComposing || event.keyCode === 32) {
+        console.log(Tone.Transport.state);
+        if (Tone.Transport.state === "paused" || Tone.Transport.state === "stopped") {
+            startPattern();
+        } else {
+            pausePattern();
+        }
+    }
+});
+
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
     const machineRows = document.getElementsByClassName('machine-row');

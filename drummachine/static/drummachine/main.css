@@ -40,7 +40,7 @@ body {
 }
 
 .is-light {
-    color: #292929 !important;
+    color: black !important;
     border-color: #363636;
     background-color: #ADADAD !important;
 }
@@ -130,7 +130,7 @@ body {
     flex-wrap: nowrap;
     width: 100%;
     background: #292929;
-    border: 0.5rem #ADADAD solid;
+    border: 0.5rem #7A7A7A solid;
     padding: 1rem 2rem 0rem 2rem;
 }
 
@@ -151,6 +151,7 @@ body {
     border-radius: 10px;
     width: 100%;
     padding-left: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .machine-container {
