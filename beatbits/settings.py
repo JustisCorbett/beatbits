@@ -131,3 +131,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ['path/to/drummachine/static']
+
+
+LOGIN_URL = '/login'
