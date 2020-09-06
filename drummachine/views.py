@@ -7,7 +7,7 @@ from django.urls import reverse
 import requests
 import json
 
-from .models import Rack, Kit, Instrument
+from .models import User, Rack, Kit, Instrument
 
 
 def index(request):
@@ -66,6 +66,14 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+
+def check_name(request, name):
+    try:
+        res =  User.objects.get(username=name)
+        return HttpResponse("Username Taken", status=200);
+    except User.DoesNotExist:
+        return HttpResponse("Username Free", status=404);
 
 
 def load_kit(request, kit):
