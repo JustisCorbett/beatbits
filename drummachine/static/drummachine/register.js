@@ -2,7 +2,7 @@
 window.onload = () => {
     document.getElementById('username-input').addEventListener('blur', () => {checkName()});
     document.getElementById('email-input').addEventListener('blur', () => {checkEmail()});
-    document.getElementsByName('password').forEach((el) => {
+    document.getElementsByClassName('password').forEach((el) => {
         el.addEventListener('blur', () => {checkPasswords()})
     });
 }
@@ -56,10 +56,10 @@ function checkPasswords() {
         password2.classList.remove('is-success');
         password1.classList.add('is-danger');
         password2.classList.add('is-danger');
-        document.getElementsByName('password-icon-success').forEach((icon) => {
+        document.getElementsByClassName('password-icon-success').forEach((icon) => {
             icon.classList.add('hidden');
         });
-        document.getElementsByName('password-icon-error').forEach((icon) => {
+        document.getElementsByClassName('password-icon-error').forEach((icon) => {
             icon.classList.remove('hidden');
         });
         document.getElementById('password-text-error').classList.remove('hidden');
@@ -68,22 +68,14 @@ function checkPasswords() {
         password2.classList.remove('is-danger');
         password1.classList.add('is-success');
         password2.classList.add('is-success');
-        document.getElementsByName('password-icon-error').forEach((icon) => {
+        document.getElementsByClassName('password-icon-error').forEach((icon) => {
             icon.classList.add('hidden');
         });
-        document.getElementsByName('password-icon-success').forEach((icon) => {
+        document.getElementsByClassName('password-icon-success').forEach((icon) => {
             icon.classList.remove('hidden');
         });
         document.getElementById('password-text-error').classList.add('hidden');
     }
-}
-
-function validateAll() {
-    let isName = document.getElementById('username-input').classList.contains('is-success');
-    let isEmail = document.getElementById('email-input').classList.contains('is-success');
-    let isPassword = document.getElementById('password-input').classList.contains('is-success');
-
-    return isName && isEmail && isPassword;
 }
 
 function getCookie(name) {
