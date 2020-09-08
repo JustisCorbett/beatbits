@@ -143,6 +143,16 @@ function saveBit() {
             rack: rack,
         })
     }).then(response => {
+        // if user is not logged in, save current bit to sessionstorage
+        if (response.status == 401) {
+            sessionStorage.setItem('anonSave', JSON.stringify({
+                name: bitName,
+                bpm: bpm,
+                kit: kit,
+                rack: rack,
+            }))
+            window.location.href = "login"
+        }
         return response.json();
     }).then(json => {
         if (json) {

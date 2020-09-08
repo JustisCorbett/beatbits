@@ -70,7 +70,7 @@ def logout_view(request):
 
 def check_name(request, name):
     try:
-        res =  User.objects.get(username=name)
+        res = User.objects.get(username=name)
         return HttpResponse("Username Taken", status=200);
     except User.DoesNotExist:
         return HttpResponse("Username Free", status=404);
@@ -109,7 +109,6 @@ def user_bits(request, user):
     return none
 
 
-@login_required
 def new_bit(request):
     """ Render new bit maker with all kits to choose from """
     kits = Kit.objects.all()
@@ -122,6 +121,9 @@ def new_bit(request):
 def save_bit(request):
     """ Save Bit from json as Rack in db """
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponse("User not authenticated", status=401);
+
         user = request.user
         data = json.loads(request.body)
         name = data["name"]
