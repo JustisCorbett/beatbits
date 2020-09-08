@@ -151,7 +151,8 @@ function saveBit() {
                 kit: kit,
                 rack: rack,
             }))
-            window.location.href = "login"
+            window.location.href = "login";
+            return null;
         }
         return response.json();
     }).then(json => {
