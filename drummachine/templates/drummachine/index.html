@@ -17,7 +17,7 @@
                     </div>
                     <div class="user-name">
                         <span>Created by&nbsp;</span>
-                        <a href="{% url 'user_bits' bit.user %}"> {{ bit.user }}</a>
+                        <a href="{% url 'user_bits' %}?user={{bit.user|urlencode}}"> {{ bit.user }}</a>
                     </div>
                     <button class="button is-grey" onclick="loadBit(this)">Load Bit</button>
                 </div>

@@ -104,7 +104,7 @@ def load_sound(request, url):
     return HttpResponse(res)
 
 
-def user_bits(request, user):
+def user_bits(request):
     """ Render page with all of a user's bits """
     return none
 
