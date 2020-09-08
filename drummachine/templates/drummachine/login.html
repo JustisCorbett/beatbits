@@ -1,0 +1,50 @@
+{% extends "drummachine/layout.html" %}
+{% load static from static %}
+
+{% block script %}
+    
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="option-container py-2">
+    <div class="name-container">
+        <span class="bit-name" id="name">Login</span>
+    </div>
+    <div class="bits-container">
+        {% if message %}
+            <div class="is-danger">
+                <h4 class="has-text-danger">{{ message }}</h4>
+            </div>
+        {% endif %}
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label has-text-light">Username</label>
+                <div class="control has-icons-left">
+                    <input name="username" id="username-input" class="input" type="text" placeholder="Username">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label has-text-light">Password</label>
+                <div class="control has-icons-left">
+                    <input name="password" id="password-input" class="input password" type="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <button id="submit-button" type="submit" class="button is-primary">Login</button>
+        </form>
+        <div>
+            <span class="has-text-grey-light">Don't have an account?<a href="{% url 'register' %}">Register</a></span>
+        </div>
+    </div>
+</div>
+{% endblock %}
