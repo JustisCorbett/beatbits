@@ -10,13 +10,18 @@
 {% block body %}
 <div class="option-container py-2">
     <div class="name-container">
-        <span class="bit-name" id="name">Login</span>
+        <span class="bit-name" id="name">Register</span>
     </div>
     <div class="bits-container">
+        {% if message %}
+            <div class="is-danger">
+                <h4 class="has-text-danger">{{ message }}</h4>
+            </div>
+        {% endif %}
         <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
             <div class="field">
-                <label class="label">Username</label>
+                <label class="label has-text-light">Username</label>
                 <div class="control has-icons-left">
                     <input name="username" id="username-input" class="input" type="text" placeholder="Username">
                     <span class="icon is-small is-left">
@@ -34,7 +39,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Email</label>
+                <label class="label has-text-light">Email</label>
                 <div class="control has-icons-left">
                     <input name="email" id="email-input" class="input" type="email" placeholder="Email">
                     <span class="icon is-small is-left">
@@ -52,7 +57,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Password</label>
+                <label class="label has-text-light">Password</label>
                 <div class="control has-icons-left">
                     <input name="password" id="password-input" class="input password" type="password" placeholder="Password">
                     <span class="icon is-small is-left">
@@ -68,7 +73,7 @@
             </div>
 
             <div class="field">
-                <label class="label">Confirm Password</label>
+                <label class="label has-text-light">Confirm Password</label>
                 <div class="control has-icons-left">
                     <input name="confirmation" id="confirm-password-input" class="input password" type="password" placeholder="Confirm Password">
                     <span class="icon is-small is-left">
@@ -83,8 +88,7 @@
                 </div>
                 <p id="password-text-error" class="help is-danger hidden">Passwords do not match!</p>
             </div>
-
-            <button id="submit-button" type="submit" class="button is-primary">Load Bit</button>
+            <button id="submit-button" type="submit" class="button is-primary">Register</button>
         </form>
     </div>
 </div>
