@@ -8,30 +8,52 @@ let playBtn = document.getElementById('play-btn'),
     pauseBtn = document.getElementById('pause-btn'),
     stopBtn = document.getElementById('stop-btn');
 
+//  there is a problem in chrome with starting audio context
+//  before a user gesture. This fixes it.
+document.documentElement.addEventListener('mousedown', () => {
+    if (Tone.context.state !== 'running') Tone.context.resume();
+  });
+
 window.onload = () => {
     playBtn = document.getElementById('play-btn'),
     pauseBtn = document.getElementById('pause-btn'),
     stopBtn = document.getElementById('stop-btn');
     rows = document.querySelectorAll('.drum-row');
     Tone.Transport.bpm.value = 140;
+    const overlay = document.getElementById('loading-overlay');
+    const loadingText = document.getElementById('loading-text');
+    const savingText = document.getElementById('saving-text');
+
+    if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
+    if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
+    if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
 
     let params = (new URL(document.location)).searchParams;
 
     if (params.has("user") && params.has("rack")) {
         // if there are url params load that rack
-        let user = params.get("user");
-        let rack = params.get("rack");
-        let info = loadUserRackInfo(user, rack);
-        buildRack(info);
+        let url = new URL('load_bit_info');
+        url.searchParams = params;
+        fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json;
+            }
+        }).then(json => {
+            let rack = json.rack;
+            return rack;
+        })
+        buildRack(rack);
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
-        let info = window.sessionStorage.getItem('anonSave');
-        buildRack(info);
+        let rack = window.sessionStorage.getItem('anonSave');
+        buildRack(rack);
     } else {
         // else load default kit
         btn = document.getElementById('kit-select-btn');
         loadKit(btn);
     }
+    overlay.classList.add('hidden');
 }
 
 document.addEventListener("keydown", event => {
@@ -96,13 +118,6 @@ function loadKit(btn) {
     });
     
 }
-
-
-// UPDATE: there is a problem in chrome with starting audio context
-//  before a user gesture. This fixes it.
-document.documentElement.addEventListener('mousedown', () => {
-  if (Tone.context.state !== 'running') Tone.context.resume();
-});
 
 function changeName() {
     const nameText = document.getElementById('name-input').value;
