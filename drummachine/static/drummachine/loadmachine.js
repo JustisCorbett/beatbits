@@ -15,9 +15,23 @@ window.onload = () => {
     rows = document.querySelectorAll('.drum-row');
     Tone.Transport.bpm.value = 140;
 
-    //load default kit
-    btn = document.getElementById('kit-select-btn');
-    loadKit(btn);
+    let params = (new URL(document.location)).searchParams;
+
+    if (params.has("user") && params.has("rack")) {
+        // if there are url params load that rack
+        let user = params.get("user");
+        let rack = params.get("rack");
+        let info = loadUserRackInfo(user, rack);
+        buildRack(info);
+    } else if (window.sessionStorage.getItem('anonSave') !== null) {
+        // else if there is an anonymous session save load that rack
+        let info = window.sessionStorage.getItem('anonSave');
+        buildRack(info);
+    } else {
+        // else load default kit
+        btn = document.getElementById('kit-select-btn');
+        loadKit(btn);
+    }
 }
 
 document.addEventListener("keydown", event => {
@@ -119,7 +133,7 @@ function saveBit() {
     if (savingText.classList.contains('hidden') === true) savingText.classList.remove('hidden');
 
     rows.forEach((row) => {
-        name = row.getAttribute('data-instr');
+        let name = row.getAttribute('data-instr');
         if (name !== 'none') instruments.push(name);
     });
     instruments.forEach((instrument) => {
