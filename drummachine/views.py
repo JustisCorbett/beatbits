@@ -116,13 +116,22 @@ def user_bits(request):
     })
 
 
-def new_bit(request):
+def load_machine(request):
     """ Render new bit maker with all kits to choose from """
     kits = Kit.objects.all()
     
-    return render(request, "drummachine/newbit.html", {
+    return render(request, "drummachine/loadmachine.html", {
         "kits": kits
     })
+
+
+def load_bit_info(request):
+    """ Return json of specified rack """
+    username = request.GET["user"]
+    rack_name = request.GET["rack"]
+
+    user = User.objects.get(username=username)
+    rack = Rack.objects.get(user=user)
 
 
 def save_bit(request):
