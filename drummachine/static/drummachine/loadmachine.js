@@ -37,7 +37,7 @@ window.onload = () => {
         fetch(url)
         .then(response => {
             if (response.ok) {
-                return response.json;
+                return response.json();
             }
         }).then(json => {
             let rack = json.rack;
@@ -46,11 +46,12 @@ window.onload = () => {
         buildRack(rack);
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
-        let rack = window.sessionStorage.getItem('anonSave');
+        let info = window.sessionStorage.getItem('anonSave');
+        let rack = info.json();
         buildRack(rack);
     } else {
         // else load default kit
-        btn = document.getElementById('kit-select-btn');
+        let btn = document.getElementById('kit-select-btn');
         loadKit(btn);
     }
     overlay.classList.add('hidden');
@@ -66,6 +67,23 @@ document.addEventListener("keydown", event => {
         }
     }
 });
+
+function buildRack(rack) {
+    const btn = document.getElementById('kit-select-btn');
+    const nameText = document.getElementsById('name');
+    const instrumentConatiner = document.getElementById('add-instr-panel');
+
+    document.getElementById('kits').value = rack.kit;
+    nameText.innerText = rack.name;
+    Tone.Transport.bpm.value = rack.bpm;
+    loadKit(btn);
+
+    for (const instrument in rack.rack) {
+        let container = instrumentConatiner.querySelector('[data-name=' + instrument +']');
+        let addBtn = container.getElementsByClassName('add-instr')[0];
+        addRow(addBtn);
+    }
+}
 
 function loadKit(btn) {
     const kit = document.getElementById('kits').value;
