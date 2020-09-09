@@ -19,7 +19,12 @@
                         <span>Created by&nbsp;</span>
                         <a href="{% url 'user_bits' %}?user={{bit.user|urlencode}}"> {{ bit.user }}</a>
                     </div>
-                    <button class="button is-grey" onclick="loadBit(this)">Load Bit</button>
+                    <form method="get" action="/loadmachine">
+                        <input class="hidden" name="user" value="{{bit.user}}">
+                        <input class="hidden" name="rack" value="{{bit.name}}">
+                        <button class="button is-grey" href=>Load Bit</button>
+                    </form>
+                    
                 </div>
             {% endfor %}
         </div>
