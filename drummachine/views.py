@@ -106,7 +106,14 @@ def load_sound(request, url):
 
 def user_bits(request):
     """ Render page with all of a user's bits """
-    return none
+    username = request.GET["user"]
+
+    user = User.objects.get(username=username)
+    bits = Rack.objects.filter(user=user)
+    return render(request, "drummachine/userbits.html", {
+        "user": user,
+        "bits": bits
+    })
 
 
 def new_bit(request):

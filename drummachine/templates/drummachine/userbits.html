@@ -1,0 +1,23 @@
+{% extends "drummachine/layout.html" %}
+
+
+
+{% block title %}{{ user.username }}'s Bits{% endblock %}
+
+{% block body %}
+    <div class="option-container py-2">
+        <div class="name-container">
+            <span class="bit-name" id="name">{{ user.username }}'s Bits</span>
+        </div>
+        <div class="bits-container">
+            {% for bit in bits %}
+                <div class="bit-container">
+                    <div class="name">
+                        {{ bit.name }}
+                    </div>
+                    <button class="button is-grey" onclick="loadBit(this)">Load Bit</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
