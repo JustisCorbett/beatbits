@@ -145,6 +145,14 @@ async function loadKit(btn) {
     });
 }
 
+function loadKitConfirm(btn) {
+    if (confirm('Warning! This will clear all patterns! Continue?')) {
+        loadKit(btn);
+      } else {
+        return null;
+      }
+}
+
 function changeName() {
     const nameText = document.getElementById('name-input').value;
     let name = document.getElementById('name');
