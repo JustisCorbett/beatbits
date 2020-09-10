@@ -273,7 +273,7 @@ body {
     font-size: 0.5rem;
     display: block;
     width: auto;
-    min-width: 2rem;
+    min-width: 1.75rem;
     max-width: 6rem;
     flex: 1;
     min-height: 6rem;

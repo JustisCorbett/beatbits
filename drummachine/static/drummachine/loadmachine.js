@@ -42,8 +42,9 @@ window.onload = () => {
         }).then(json => {
             let rack = json.rack;
             return rack;
-        })
-        buildRack(rack);
+        }).then(() => {
+            buildRack(rack);
+        });
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
         let info = window.sessionStorage.getItem('anonSave');
@@ -54,7 +55,6 @@ window.onload = () => {
         let btn = document.getElementById('kit-select-btn');
         loadKit(btn);
     }
-    overlay.classList.add('hidden');
 }
 
 document.addEventListener("keydown", event => {
@@ -68,21 +68,31 @@ document.addEventListener("keydown", event => {
     }
 });
 
-function buildRack(rack) {
+async function buildRack(rack) {
     const btn = document.getElementById('kit-select-btn');
     const nameText = document.getElementById('name');
-    const instrumentConatiner = document.getElementById('add-instr-panel');
+    const overlay = document.getElementById('loading-overlay');
 
     document.getElementById('kits').value = rack.kit;
     nameText.innerText = rack.name;
     Tone.Transport.bpm.value = rack.bpm;
-    loadKit(btn).then(() => {
-        for (const instrument in rack.rack) {
+    await loadKit(btn).then(() => {
+        // loop through each instrument in rack and add a row for it
+        // then select pads for the instruments pattern
+        for (const [instrument, info] of Object.entries(rack.rack)) {
             let container = document.querySelector('[data-name="' + instrument + '"]');
             let addBtn = container.getElementsByClassName('add-instr')[0];
             addRow(addBtn);
-        }
-    });
+            let addedRow = document.querySelector('.drum-row[data-instr="' + instrument + '"]');
+            let pads = addedRow.getElementsByTagName('div');
+            for (i = 0; i < info.pattern.length; i++) {
+                if (info.pattern[i] === 1) {
+                    selectPad(pads[i]);
+                };
+            };
+        };
+    })
+    overlay.classList.add('hidden');
 }
 
 async function loadKit(btn) {
@@ -90,17 +100,11 @@ async function loadKit(btn) {
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
     const rowParent = machineRow.parentNode;
-    const overlay = document.getElementById('loading-overlay');
-    const loadingText = document.getElementById('loading-text');
-    const savingText = document.getElementById('saving-text');
     const options = document.getElementsByClassName('instrument-select')
     const optionParent = document.getElementsByClassName('instrument-select')[0].parentNode;
     
 
     loadedKit = kit;
-    if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
-    if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
-    if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
     // clear all existing rows
     for (i = machineRows.length; i > 1; i--) {
         rowParent.removeChild(rowParent.lastChild);
@@ -128,9 +132,6 @@ async function loadKit(btn) {
             nameText.innerText = instrument.name;
             optionParent.append(optionClone);
         });
-    }).then(() => {
-        overlay.classList.add('hidden');
-        return null;
     });
 }
 
@@ -245,7 +246,7 @@ function playSample(btn) {
     player.start();
 }
 
-function addRow(btn) {
+async function addRow(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
