@@ -14,6 +14,7 @@ document.documentElement.addEventListener('mousedown', () => {
     if (Tone.context.state !== 'running') Tone.context.resume();
   });
 
+// load rack and kit
 window.onload = () => {
     playBtn = document.getElementById('play-btn'),
     pauseBtn = document.getElementById('pause-btn'),
@@ -37,9 +38,16 @@ window.onload = () => {
         .then(response => {
             if (response.ok) {
                 return response.json();
+            } else {
+                throw response.text();
             }
         }).then(json => {
             buildRack(json);
+        }).catch((err) => {
+            // if fetch fails, log error and load default kit
+            console.log(err);
+            let btn = document.getElementById('kit-select-btn');
+            loadKit(btn);
         });
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
@@ -74,7 +82,7 @@ async function buildRack(rack) {
     Tone.Transport.bpm.value = rack.bpm;
     await loadKit(btn).then(() => {
         // loop through each instrument in rack and add a row for it
-        // then select pads for the instruments pattern
+        // then select pads for the instrument's pattern
         for (const [instrument, info] of Object.entries(rack.rack)) {
             let container = document.querySelector('[data-name="' + instrument + '"]');
             let addBtn = container.getElementsByClassName('add-instr')[0];
@@ -111,7 +119,11 @@ async function loadKit(btn) {
 
     await fetch(('load_kit/' + kit)
     ).then(response => {
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw response.text();
+        }
     }).then(data => {
         instruments = data.instruments;
         instruments.forEach((instrument) => {
@@ -128,6 +140,8 @@ async function loadKit(btn) {
             nameText.innerText = instrument.name;
             optionParent.append(optionClone);
         });
+    }).catch((err) => {
+        console.log(err);
     });
 }
 
@@ -185,6 +199,7 @@ function saveBit() {
         })
     }).then(response => {
         // if user is not logged in, save current bit to sessionstorage
+        // and redirect to login
         if (response.status == 401) {
             sessionStorage.setItem('anonSave', JSON.stringify({
                 name: bitName,
@@ -195,13 +210,20 @@ function saveBit() {
             window.location.href = "login";
             return null;
         }
-        return response.json();
-    }).then(json => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw response.text();
+        }
+        
+    }).then((json) => {
         if (json) {
             alert(json.message);
         }
         overlay.classList.add('hidden');
         return null;
+    }).catch((err) => {
+        console.log(err);
     })
 }
 

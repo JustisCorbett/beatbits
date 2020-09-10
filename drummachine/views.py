@@ -93,15 +93,7 @@ def load_kit(request, kit):
             "message": "Success!"
         }, status=200)
     else:
-        return JsonResponse({
-            "message": "Error: Must use GET!"
-        }, status=400)
-
-
-def load_sound(request, url):
-    """ Load sounds on server to avoid CORS blocking and return as HttpResponse"""
-    res = requests.get(url)
-    return HttpResponse(res)
+        return HttpResponse("Kit not found", status=404)
 
 
 def user_bits(request):
