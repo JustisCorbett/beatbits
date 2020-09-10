@@ -47,7 +47,7 @@ window.onload = () => {
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
         let info = window.sessionStorage.getItem('anonSave');
-        let rack = info.json();
+        let rack = JSON.parse(info);
         buildRack(rack);
     } else {
         // else load default kit
@@ -70,22 +70,22 @@ document.addEventListener("keydown", event => {
 
 function buildRack(rack) {
     const btn = document.getElementById('kit-select-btn');
-    const nameText = document.getElementsById('name');
+    const nameText = document.getElementById('name');
     const instrumentConatiner = document.getElementById('add-instr-panel');
 
     document.getElementById('kits').value = rack.kit;
     nameText.innerText = rack.name;
     Tone.Transport.bpm.value = rack.bpm;
-    loadKit(btn);
-
-    for (const instrument in rack.rack) {
-        let container = instrumentConatiner.querySelector('[data-name=' + instrument +']');
-        let addBtn = container.getElementsByClassName('add-instr')[0];
-        addRow(addBtn);
-    }
+    loadKit(btn).then(() => {
+        for (const instrument in rack.rack) {
+            let container = document.querySelector('[data-name="' + instrument + '"]');
+            let addBtn = container.getElementsByClassName('add-instr')[0];
+            addRow(addBtn);
+        }
+    });
 }
 
-function loadKit(btn) {
+async function loadKit(btn) {
     const kit = document.getElementById('kits').value;
     const machineRows = document.getElementsByClassName('machine-row');
     const machineRow = machineRows[0];
@@ -109,8 +109,7 @@ function loadKit(btn) {
         optionParent.removeChild(optionParent.lastChild);
     }
 
-
-    fetch(('load_kit/' + kit)
+    await fetch(('load_kit/' + kit)
     ).then(response => {
         return response.json();
     }).then(data => {
@@ -129,12 +128,10 @@ function loadKit(btn) {
             nameText.innerText = instrument.name;
             optionParent.append(optionClone);
         });
-        return null;
     }).then(() => {
         overlay.classList.add('hidden');
         return null;
     });
-    
 }
 
 function changeName() {
