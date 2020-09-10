@@ -32,18 +32,14 @@ window.onload = () => {
 
     if (params.has("user") && params.has("rack")) {
         // if there are url params load that rack
-        let url = new URL('load_bit_info');
-        url.searchParams = params;
-        fetch(url)
+        console.log('load_bit_info' + params);
+        fetch('load_bit_info?' + params)
         .then(response => {
             if (response.ok) {
                 return response.json();
             }
         }).then(json => {
-            let rack = json.rack;
-            return rack;
-        }).then(() => {
-            buildRack(rack);
+            buildRack(json);
         });
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
