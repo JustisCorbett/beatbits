@@ -12,5 +12,6 @@ urlpatterns = [
     path("load_kit/<int:kit>", views.load_kit, name="load_kit"),
     path("save_bit", views.save_bit, name="save_bit"),
     path("load_machine", views.load_machine, name="load_machine"),
+    path("load_bit_info", views.load_bit_info, name="load_bit_info"),
     path("user_bits", views.user_bits, name="user_bits")
 ]

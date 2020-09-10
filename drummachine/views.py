@@ -126,12 +126,16 @@ def load_machine(request):
 
 
 def load_bit_info(request):
-    """ Return json of specified rack """
+    """ Return config of specified rack """
     username = request.GET["user"]
     rack_name = request.GET["rack"]
 
     user = User.objects.get(username=username)
-    rack = Rack.objects.get(user=user)
+    rack = Rack.objects.get(user=user, name=rack_name)
+    if rack:
+        return JsonResponse(rack.config, status=200)
+    else:
+        return HttpResponse("Rack not found!", satus=404)
 
 
 def save_bit(request):
