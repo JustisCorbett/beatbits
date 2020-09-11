@@ -210,6 +210,7 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 50%;
+    order: 2;
 }
 .right-controls {
     display: flex;
@@ -217,6 +218,7 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 50%;
+    order: 3;
 }
 
 .instr-info-box {
@@ -269,6 +271,7 @@ body {
     padding-left: 0.5rem;
     font-size: 1.25rem;
     font-weight: 500;
+    order: 1;
 }
 
 .pad {
@@ -393,5 +396,13 @@ body {
 @media only screen and (max-width: 626px) {
     .break {
         display: block;
+    }
+    .right-controls {
+        width: 100%;
+        order: 2;
+    }
+    .left-controls {
+        width: 100%;
+        order: 3;
     }
 }
