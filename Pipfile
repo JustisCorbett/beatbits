@@ -11,6 +11,7 @@ psycopg2 = "*"
 requests = "*"
 django-heroku = "*"
 whitenoise = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.8"
