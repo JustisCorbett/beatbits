@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-)cgtl(fcg8_eew9$%ah_bd2wzgfd*q(&!s21d7tj9n$ii5^x8'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'beatbits.wsgi.application'
 
 DATABASES = {
     'default': {
-        os.environ("DATABASE_URL")
+        os.environ["DATABASE_URL"]
     }
 }
 
