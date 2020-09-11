@@ -1,6 +1,6 @@
 from waitress import serve
 
-from yourdjangoproject.wsgi import application
+from beatbits.wsgi import application
 
 # Serve django application with waitress.
 
