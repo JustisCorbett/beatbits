@@ -76,18 +76,7 @@ WSGI_APPLICATION = 'beatbits.wsgi.application'
 
 DATABASES = {
     'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'beatbitdev',
-
-        'USER': 'postgres',
-
-        'PASSWORD': 'bigboy',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
+        os.environ("DATABASE_URL")
     }
 }
 
@@ -130,7 +119,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ['path/to/drummachine/static']
+STATICFILES_DIRS = ['drummachine/static']
 
 
 LOGIN_URL = '/login'
