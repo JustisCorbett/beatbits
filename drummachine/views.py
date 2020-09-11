@@ -149,12 +149,7 @@ def save_bit(request):
         try:
             rack.save()
         except IntegrityError:
-            return JsonResponse({
-                "message": "Error: You already have a bit with that name!"
-            }, status=400)
-
-        return JsonResponse({
-            "message": "Save Successful!"
-        }, status=200)
+            return HttpResponse("You already have a bit with that name!", status=400)
+        return HttpResponse("Save successful!", status=200)
 
         

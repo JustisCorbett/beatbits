@@ -175,6 +175,7 @@ function saveBit() {
     const overlay = document.getElementById('loading-overlay');
     const loadingText = document.getElementById('loading-text');
     const savingText = document.getElementById('saving-text');
+    const feedbackEl = document.getElementById('feedback');
     let instruments = [];
     let rack = {};
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
@@ -219,20 +220,25 @@ function saveBit() {
             return null;
         }
         if (response.ok) {
-            return response.json();
+            return response.text().then((text) => {
+                if (text) {
+                    feedbackEl.classList.remove('hidden');
+                    feedbackEl.classList.add('has-text-success');
+                    feedbackEl.classList.remove('has-text-danger');
+                    feedbackEl.innerText = text;
+                } 
+                overlay.classList.add('hidden');
+            });
         } else {
-            throw response.text();
+            return response.text().then((text) => {
+                feedbackEl.classList.remove('hidden');
+                feedbackEl.classList.add('has-text-danger');
+                feedbackEl.classList.remove('has-text-success');
+                feedbackEl.innerText = text;
+                overlay.classList.add('hidden');
+            });
         }
-        
-    }).then((json) => {
-        if (json) {
-            alert(json.message);
-        }
-        overlay.classList.add('hidden');
-        return null;
-    }).catch((err) => {
-        console.log(err);
-    })
+    });
 }
 
 function changePitch(slider) {
