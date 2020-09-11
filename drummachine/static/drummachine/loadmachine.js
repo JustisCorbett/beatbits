@@ -310,20 +310,6 @@ function muteInstr(btn) {
     btn.classList.remove('is-loading');
 }
 
-function moveKitPanel(btn) {
-    const icon = btn.getElementsByTagName('svg')[0];
-    const panel = document.getElementById('kit-select');
-    const label = document.getElementsByClassName('kit-label')[0];
-
-    panel.classList.toggle('hidden');
-    label.classList.toggle('hidden');
-    if (icon.getAttribute('data-icon') === 'plus') {
-        icon.setAttribute('data-icon', 'times')
-    } else {
-        icon.setAttribute('data-icon', 'plus')
-    };
-}
-
 function moveNamePanel(btn) {
     const icon = btn.getElementsByTagName('svg')[0];
     const panel = document.getElementById('name-panel');
@@ -338,23 +324,6 @@ function moveNamePanel(btn) {
         icon.setAttribute('data-icon', 'times')
     } else {
         icon.setAttribute('data-icon', 'plus')
-    };
-}
-
-function moveAddPanel(btn) {
-    const icons = btn.getElementsByTagName('svg');
-    const panel = document.getElementById('add-instr-panel');
-    const label = document.getElementsByClassName('add-instr-label')[0];
-
-    panel.classList.toggle('hidden');
-    label.classList.toggle('hidden');
-    for (i = 0; i < icons.length; i++) {
-        icon = icons[i];
-        if (icon.getAttribute('data-icon') === 'angle-down') {
-            icon.setAttribute('data-icon', 'angle-up')
-        } else {
-            icon.setAttribute('data-icon', 'angle-down')
-        };
     };
 }
 
