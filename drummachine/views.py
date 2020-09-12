@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db import IntegrityError
 from django.urls import reverse
+from django.templatetags.static import static
 import requests
 import json
 
@@ -87,7 +88,12 @@ def load_kit(request, kit):
             }, status=404)
         # wrap query values in list for json
         instruments_list = list(instruments.values())
-        
+
+        # change path for each instrument to full static path
+        for instrument in instruments_list:
+            path_part = instrument["path"]
+            path_full = static(path_part)
+            instrument["path"] = path_full
         return JsonResponse({
             "instruments": instruments_list,
             "message": "Success!"
