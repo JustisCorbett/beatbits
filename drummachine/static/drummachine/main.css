@@ -272,6 +272,7 @@ body {
     font-size: 1.25rem;
     font-weight: 500;
     order: 1;
+    color: #292929 !important;
 }
 
 .pad {

@@ -42,17 +42,17 @@
             </div>
             
             <div class="field is-grouped has-addons">
-                <button class="button is-light is-medium" onclick="startPattern()" id="play-btn">
+                <button class="button is-light is-medium" onclick="startPattern()" id="play-btn" aria-label="Play Pattern">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-play"></i>
                     </span>
                 </button>
-                <button class="button is-light is-medium" onclick="pausePattern()" id="pause-btn">
+                <button class="button is-light is-medium" onclick="pausePattern()" id="pause-btn" aria-label="Pause Pattern">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-pause"></i>
                     </span>
                 </button>
-                <button class="button is-light is-medium" onclick="stopPattern()" id="stop-btn">
+                <button class="button is-light is-medium" onclick="stopPattern()" id="stop-btn" aria-label="Stop Pattern">
                     <span class="icon is-medium">
                         <i class="fas fa-lg fa-stop"></i>
                     </span>
@@ -79,12 +79,12 @@
                             none
                         </div>
                         <div>
-                            <button class="button is-light play-sample" onclick="playSample(this)">
+                            <button class="button is-light play-sample" onclick="playSample(this)" aria-label="Play Sample">
                                 <span class="icon is-large">
                                     <i class="fas fa-play"></i>
                                 </span>
                             </button>
-                            <button class="button is-light add-instr" onclick="addRow(this)">
+                            <button class="button is-light add-instr" onclick="addRow(this)" aria-label="Add Row">
                                 <span class="icon is-large">
                                     <i class="fas fa-plus"></i>
                                 </span>
@@ -101,14 +101,14 @@
                 <div class="instr-info-box">
                     <div class="side-controls">
                         <div>
-                            <button class="button is-grey" onclick="removeInstr(this)">
+                            <button class="button is-grey" onclick="removeInstr(this)" aria-label="Remove Instrument">
                                 <span class="icon is-large">
                                     <i class="fas fa-times"></i>
                                 </span>
                             </button>
                         </div>
                         <div>
-                            <button class="button is-grey" onclick="muteInstr(this)">
+                            <button class="button is-grey" onclick="muteInstr(this)" aria-label="Mute Instrument">
                                 <span class="icon is-large">
                                     <i class="fas fa-volume-up"></i>
                                 </span>
