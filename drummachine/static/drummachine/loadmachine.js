@@ -33,7 +33,7 @@ window.onload = async () => {
 
     if (params.has("user") && params.has("rack")) {
         // if there are url params load that rack
-        console.log('load_bit_info' + params);
+        
         fetch('load_bit_info?' + params)
         .then((response) => {
             if (response.ok) {
@@ -67,8 +67,6 @@ window.onload = async () => {
             overlay.classList.add('hidden');
         });
     }
-    console.log('loadedbuild')
-    
 }
 
 document.addEventListener("keydown", event => {
@@ -131,7 +129,7 @@ async function loadKit(btn) {
         let jsonData = await response.json();
         let instruments = jsonData.instruments;
         for await (const instrument of instruments) {
-            let player = null//await new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
+            let player = null
             players[instrument.name] = {
                 'path': instrument.path,
                 'player': player,
@@ -299,7 +297,7 @@ function removeInstr(btn) {
 async function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
     let instrument = players[selection]
-    console.log(instrument.player);
+    
     if (instrument.player === null) {
         btn.classList.add('is-loading');
         
