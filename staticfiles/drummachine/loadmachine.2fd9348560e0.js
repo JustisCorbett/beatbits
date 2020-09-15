@@ -34,41 +34,33 @@ window.onload = async () => {
     if (params.has("user") && params.has("rack")) {
         // if there are url params load that rack
         console.log('load_bit_info' + params);
-        fetch('load_bit_info?' + params)
-        .then((response) => {
+        await fetch('load_bit_info?' + params)
+        .then(async (response) => {
             if (response.ok) {
                 return response.json();
             } else {
                 throw response.text();
             }
-        }).then((json) => {
-            buildRack(json).then(() => {
-                overlay.classList.add('hidden');
-            });
+        }).then(json => {
+            await buildRack(json);
         }).catch((err) => {
             // if fetch fails, log error and load default kit
             console.log(err);
             let btn = document.getElementById('kit-select-btn');
-            loadKit(btn).then(() => {
-                overlay.classList.add('hidden');
-            });
+            await loadKit(btn);
         });
     } else if (window.sessionStorage.getItem('anonSave') !== null) {
         // else if there is an anonymous session save load that rack
         let info = window.sessionStorage.getItem('anonSave');
         let rack = JSON.parse(info);
-        buildRack(rack).then(() => {
-            overlay.classList.add('hidden');
-        });
+        await buildRack(rack);
     } else {
         // else load default kit
         let btn = document.getElementById('kit-select-btn');
-        loadKit(btn).then(() => {
-            overlay.classList.add('hidden');
-        });
+        await loadKit(btn);
     }
     console.log('loadedbuild')
-    
+    overlay.classList.add('hidden');
 }
 
 document.addEventListener("keydown", event => {
@@ -126,52 +118,32 @@ async function loadKit(btn) {
         optionParent.removeChild(optionParent.lastChild);
     }
 
-    let response = await fetch(('load_kit/' + kit));
-    // ).then(response => {
-    //     if (response.ok) {
-    //         return response.json();
-    //     } else {
-    //         throw response.text();
-    //     }
-    // }).then((data) => {
-    //     instruments = data.instruments;
-        
-    //     return instruments
-    //     instruments.forEach((instrument) => {
-    //         let player = new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
-    //         players[instrument.name] = {
-    //             'path': instrument.path,
-    //             'player': player,
-    //             'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    //         };
-    //         let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
-    //         let nameText = optionClone.getElementsByClassName('name')[0];
-    //         optionClone.classList.remove('hidden');
-    //         optionClone.setAttribute('data-name', instrument.name);
-    //         nameText.innerText = instrument.name;
-    //         optionParent.append(optionClone);
-    //     });
-        
-    // }).catch((err) => {
-    //     console.log(err);
-    // });
-    let jsonData = await response.json();
-    let instruments = jsonData.instruments;
-    for await (const instrument of instruments) {
-        let player = await new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
-        players[instrument.name] = {
-            'path': instrument.path,
-            'player': player,
-            'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        };
-        let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
-        let nameText = optionClone.getElementsByClassName('name')[0];
-        optionClone.classList.remove('hidden');
-        optionClone.setAttribute('data-name', instrument.name);
-        nameText.innerText = instrument.name;
-        optionParent.append(optionClone);
-    };
-    return null;
+    await fetch(('load_kit/' + kit)
+    ).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw response.text();
+        }
+    }).then(data => {
+        instruments = data.instruments;
+        instruments.forEach(async (instrument) => {
+            let player = await new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
+            players[instrument.name] = {
+                'path': instrument.path,
+                'player': player,
+                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            };
+            let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
+            let nameText = optionClone.getElementsByClassName('name')[0];
+            optionClone.classList.remove('hidden');
+            optionClone.setAttribute('data-name', instrument.name);
+            nameText.innerText = instrument.name;
+            optionParent.append(optionClone);
+        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 function loadKitConfirm(btn) {
@@ -222,14 +194,6 @@ function saveBit() {
         };
     });
 
-    if (csrftoken === null) {
-        saveBitToSession({
-            bitName: bitName, 
-            bpm: bpm, 
-            kit: kit, 
-            rack: rack
-        });
-    }
     fetch('save_bit', {
         method: 'POST',
         credentials: 'include',
@@ -247,12 +211,14 @@ function saveBit() {
         // if user is not logged in, save current bit to sessionstorage
         // and redirect to login
         if (response.status == 401) {
-            saveBitToSession({
-                bitName: bitName, 
-                bpm: bpm, 
-                kit: kit, 
-                rack: rack
-            });
+            sessionStorage.setItem('anonSave', JSON.stringify({
+                name: bitName,
+                bpm: bpm,
+                kit: kit,
+                rack: rack,
+            }))
+            window.location.href = "login";
+            return null;
         }
         if (response.ok) {
             return response.text().then((text) => {
@@ -274,19 +240,6 @@ function saveBit() {
             });
         }
     });
-}
-
-function saveBitToSession(context) {
-    // Save current bit to session storage,
-    // then redirect to login.
-    sessionStorage.setItem('anonSave', JSON.stringify({
-        name: context.bitName,
-        bpm: context.bpm,
-        kit: context.kit,
-        rack: context.rack,
-    }))
-    window.location.href = "login";
-    return null;
 }
 
 function changePitch(slider) {
