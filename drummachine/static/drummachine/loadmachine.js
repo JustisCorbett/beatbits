@@ -294,20 +294,19 @@ function removeInstr(btn) {
     stopPattern();
 }
 
-function playSample(btn) {
+async function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
     instrument = players[selection]
     let player = instrument.player;
 
     if (player === null) {
         btn.classList.add('is-loading');
-        instrument.player = new Tone.Player(instrument.path, playSample(btn)).toDestination();
-    } else {
+        instrument.player = await new Tone.Player().toDestination();
+        await instrument.player.load(instrument.path);
         btn.classList.remove('is-loading');
+    } else {
         player.start();
     }
-
-    player.start();
 }
 
 async function addRow(btn) {
