@@ -294,6 +294,8 @@ function removeInstr(btn) {
     stopPattern();
 }
 
+// Load player buffer if instrument doesn't have one,
+// then play sample.
 async function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
     instrument = players[selection]
@@ -315,6 +317,8 @@ async function addRow(btn) {
     const machineRowClone = machineRow.cloneNode(true);
     const name = machineRowClone.getElementsByClassName('name')[0];
     const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
+    // Make sure sample is loaded before adding.
+    playSample(btn);
 
     machineRowClone.classList.remove('hidden');
     machineRowClone.setAttribute('data-instr', selection);
