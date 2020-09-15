@@ -298,16 +298,18 @@ function removeInstr(btn) {
 // then play sample.
 async function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
-    instrument = players[selection]
-    let player = instrument.player;
-
-    if (player === null) {
+    let instrument = players[selection]
+    console.log(instrument.player);
+    if (instrument.player === null) {
         btn.classList.add('is-loading');
+        
         instrument.player = await new Tone.Player().toDestination();
         await instrument.player.load(instrument.path);
+        await instrument.player.start()
+        
         btn.classList.remove('is-loading');
     } else {
-        player.start();
+        instrument.player.start();
     }
 }
 
