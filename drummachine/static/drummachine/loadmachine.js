@@ -127,50 +127,25 @@ async function loadKit(btn) {
     }
 
     let response = await fetch(('load_kit/' + kit));
-    // ).then(response => {
-    //     if (response.ok) {
-    //         return response.json();
-    //     } else {
-    //         throw response.text();
-    //     }
-    // }).then((data) => {
-    //     instruments = data.instruments;
-        
-    //     return instruments
-    //     instruments.forEach((instrument) => {
-    //         let player = new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
-    //         players[instrument.name] = {
-    //             'path': instrument.path,
-    //             'player': player,
-    //             'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    //         };
-    //         let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
-    //         let nameText = optionClone.getElementsByClassName('name')[0];
-    //         optionClone.classList.remove('hidden');
-    //         optionClone.setAttribute('data-name', instrument.name);
-    //         nameText.innerText = instrument.name;
-    //         optionParent.append(optionClone);
-    //     });
-        
-    // }).catch((err) => {
-    //     console.log(err);
-    // });
-    let jsonData = await response.json();
-    let instruments = jsonData.instruments;
-    for await (const instrument of instruments) {
-        let player = await new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
-        players[instrument.name] = {
-            'path': instrument.path,
-            'player': player,
-            'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    if (response.ok) {
+        let jsonData = await response.json();
+        let instruments = jsonData.instruments;
+        for await (const instrument of instruments) {
+            let player = null//await new Tone.Player(instrument.path, () => {console.log('loadedbuffer')}).toDestination();
+            players[instrument.name] = {
+                'path': instrument.path,
+                'player': player,
+                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            };
+            let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
+            let nameText = optionClone.getElementsByClassName('name')[0];
+            optionClone.classList.remove('hidden');
+            optionClone.setAttribute('data-name', instrument.name);
+            nameText.innerText = instrument.name;
+            optionParent.append(optionClone);
         };
-        let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
-        let nameText = optionClone.getElementsByClassName('name')[0];
-        optionClone.classList.remove('hidden');
-        optionClone.setAttribute('data-name', instrument.name);
-        nameText.innerText = instrument.name;
-        optionParent.append(optionClone);
-    };
+    }
+    
     return null;
 }
 
@@ -321,7 +296,16 @@ function removeInstr(btn) {
 
 function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
-    player = players[selection].player;
+    instrument = players[selection]
+    let player = instrument.player;
+
+    if (player === null) {
+        btn.classList.add('is-loading');
+        instrument.player = new Tone.Player(instrument.path, playSample(btn)).toDestination();
+    } else {
+        btn.classList.remove('is-loading');
+        player.start();
+    }
 
     player.start();
 }
