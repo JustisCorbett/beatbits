@@ -1,7 +1,7 @@
 
 let players = {};
 let loadedKit = "";
-let rows = document.querySelectorAll('.drum-row');
+let rows = document.getElementsByClassName('drum-row');
 let index = 0;
 
 let playBtn = document.getElementById('play-btn'),
@@ -133,7 +133,9 @@ async function loadKit(btn) {
             players[instrument.name] = {
                 'path': instrument.path,
                 'player': player,
-                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                'pattern': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                'pitches': [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                'volumes': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             };
             let optionClone = document.getElementsByClassName('instrument-select')[0].cloneNode(true);
             let nameText = optionClone.getElementsByClassName('name')[0];
@@ -263,21 +265,21 @@ function saveBitToSession(context) {
 }
 
 function changePitch(slider) {
-    const instrumentName = slider.parentNode.parentNode.parentNode.getAttribute('data-instr');
-    const player = players[instrumentName].player;
+    const step = slider.parentNode.parentNode.getAttribute('data-i');
     const display = slider.nextElementSibling;
-
-    player.playbackRate = slider.value;
+    const selection = slider.parentNode.parentNode.parentNode.previousElementSibling.getAttribute('data-instr');
+    let pitches = players[selection].pitches;
+    pitches[step] = slider.value;
     display.innerText = slider.value;
 }
 
 function changeVolume(slider) {
-    const instrumentName = slider.parentNode.parentNode.parentNode.getAttribute('data-instr');
-    const player = players[instrumentName].player;
+    const step = slider.parentNode.parentNode.getAttribute('data-i');
     const display = slider.nextElementSibling;
-
-    player.volume.value = slider.value;
-    display.innerText = slider.value + 'db';
+    const selection = slider.parentNode.parentNode.parentNode.previousElementSibling.getAttribute('data-instr');
+    let vols = players[selection].volumes;
+    vols[step] = slider.value;
+    display.innerText = slider.value;
 }
 
 function removeInstr(btn) {
@@ -328,7 +330,9 @@ async function addRow(btn) {
     machineRow.parentNode.append(machineRowClone);
     btn.setAttribute('disabled', true); // disable option to prevent copies of players
     // restart transport to play added row
-    stopPattern();
+    //stopPattern();
+    console.log(rows);
+    rows = document.getElementsByClassName('drum-row');
 }
 
 function muteInstr(btn) {
@@ -408,7 +412,7 @@ function changeBpm(slider) {
 }
 
 function startPattern() {
-    rows = document.querySelectorAll('.drum-row');
+    //rows = document.querySelectorAll('.drum-row');
     pauseBtn.removeAttribute('disabled');
     stopBtn.removeAttribute('disabled');
     playBtn.setAttribute('disabled', true);
@@ -443,6 +447,10 @@ function stopPattern() {
     };
 }
 
+function highlighter() {
+
+}
+
 function repeat(time) {
   let step = index % 16;
   // start iteration at 1 to ignore hidden template row
@@ -450,19 +458,26 @@ function repeat(time) {
     let row = rows[i],
         pads = row.getElementsByTagName('div'),
         pad = pads[step],
-        previous = pads[(step - 1)],
-        last = pads[(pads.length - 1)],
+        previousPad = pads[(step - 1)],
+        lastPad = pads[(pads.length - 1)],
         instrName = row.getAttribute('data-instr'),
         pattern = players[instrName].pattern,
-        player = players[instrName].player;
-    if (previous !== undefined) {
+        player = players[instrName].player,
+        pitch = players[instrName].pitches[step],
+        volume = players[instrName].volumes[step];
+    if (previousPad !== undefined) {
         pad.classList.add('highlighted');
-        previous.classList.remove('highlighted');
+        previousPad.classList.remove('highlighted');
     } else {
         pad.classList.add('highlighted');
-        last.classList.remove('highlighted');
+        lastPad.classList.remove('highlighted');
     };
-    if (pattern[step] == 1) player.start(time);
+    
+    if (pattern[step] == 1) {
+        player.volume.value = volume;
+        player.playbackRate = pitch;
+        player.start(time);
+    }
   }
   index++;
 

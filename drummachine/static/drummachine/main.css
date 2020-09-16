@@ -10,6 +10,17 @@ body {
     width: 100%;
 }
 
+.slider-vert {
+    -webkit-appearance: none;
+    height: 5rem;
+    width: 1rem;
+    border-radius: 5px;
+    background: #ccc;
+    outline: none;
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+}
+
 .full-width {
     width: 100% !important;
 }
@@ -21,6 +32,7 @@ body {
 .light-info {
     color: #ADADAD;
     padding-left: 0.25rem;
+    font-size: 0.75rem;
 }
 
 .dark-info {
@@ -65,6 +77,7 @@ body {
 
 .input-dark {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #292929;
@@ -237,11 +250,17 @@ body {
 .instr-controls {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: start;
+    justify-content: space-between;
     flex-wrap: wrap;
-    background-color: #7A7A7A;
-    padding: 0.5rem;
+    flex: 1;
+    border: 0.5rem #7A7A7A solid;
+    border-radius: 0px 10px 0px 0px;
+    height: 7rem;
+    min-width: fit-content;
+    padding: 0.25rem;
+    margin-top: -4px;
+    margin-bottom: -4px;
+    background-color: #525252;
 }
 
 .side-controls {
@@ -288,7 +307,25 @@ body {
     border-radius: 15px;
 }
 
+.pad-control {
+    font-size: 0.5rem;
+    display: block;
+    width: auto;
+    min-width: 1.75rem;
+    max-width: 6rem;
+    flex: 1;
+    min-height: 6rem;
+    background-color: #292929;
+    border: 2px #525252 solid;
+    border-radius: 15px;
+}
+
 .pad:hover {
+    border: 2px #ADADAD solid;
+    cursor: pointer;
+}
+
+.pad-control:hover {
     border: 2px #ADADAD solid;
     cursor: pointer;
 }
