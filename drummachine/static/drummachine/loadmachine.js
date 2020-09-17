@@ -90,17 +90,27 @@ async function buildRack(rack) {
     Tone.Transport.bpm.value = rack.bpm;
     await loadKit(btn).then(() => {
         // loop through each instrument in rack and add a row for it
-        // then select pads for the instrument's pattern
         for (const [instrument, info] of Object.entries(rack.rack)) {
             let container = document.querySelector('[data-name="' + instrument + '"]');
             let addBtn = container.getElementsByClassName('add-instr')[0];
-            addRow(addBtn);
-            let addedRow = document.querySelector('.drum-row[data-instr="' + instrument + '"]');
-            let pads = addedRow.getElementsByTagName('div');
+            addedRow = addRow(addBtn);
+            let addedDrumRow = addedRow.getElementsByClassName('drum-row')[0];
+            let addedControlRow = addedRow.getElementsByClassName('instr-controls')[0];
+            let pads = addedDrumRow.getElementsByClassName('pad');
+            let controls = addedControlRow.getElementsByClassName('pad-control');
+            // then select pads for the instrument's pattern
             for (i = 0; i < info.pattern.length; i++) {
+                let control = controls[i];   //.querySelector('[data-i="' + i + '"]');
+                let controlPitch = control.querySelector('[name="pitch-input"]');
+                let controlVol = control.querySelector('[name="volume-input"]');
                 if (info.pattern[i] === 1) {
                     selectPad(pads[i]);
                 };
+                // then adjust slider values
+                controlPitch.value = info.pitches[i];
+                controlVol.value = info.volumes[i];
+                changePitch(controlPitch);
+                changeVolume(controlVol);
             };
         };
     })
@@ -195,6 +205,8 @@ function saveBit() {
         rack[instrument] = {
             path: players[instrument].path,
             pattern: players[instrument].pattern,
+            pitches: players[instrument].pitches,
+            volumes: players[instrument].volumes
         };
     });
 
@@ -314,7 +326,7 @@ async function playSample(btn) {
     }
 }
 
-async function addRow(btn) {
+function addRow(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
     const machineRow = document.getElementsByClassName('machine-row')[0];
     const machineRowClone = machineRow.cloneNode(true);
@@ -330,9 +342,9 @@ async function addRow(btn) {
 
     machineRow.parentNode.append(machineRowClone);
     btn.setAttribute('disabled', true); // disable option to prevent copies of players
-    // restart transport to play added row
-    //stopPattern();
+    // update rows variable
     rows = document.getElementsByClassName('drum-row');
+    return machineRowClone;
 }
 
 function muteInstr(btn) {
