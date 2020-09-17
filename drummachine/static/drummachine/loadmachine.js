@@ -500,7 +500,8 @@ function repeat(time) {
     highlighter(row, controlRow, step);
     
     if (pattern[step] == 1) {
-        player.volume.value = volume;
+        // check if player is muted to avoid overriding volume
+        if (!player.mute) player.volume.value = volume;
         player.playbackRate = pitch;
         player.start(time);
     }
