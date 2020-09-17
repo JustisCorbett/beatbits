@@ -2,6 +2,7 @@
 let players = {};
 let loadedKit = "";
 let rows = document.getElementsByClassName('drum-row');
+let controlRows = document.getElementsByClassName('instr-controls');
 let index = 0;
 
 let playBtn = document.getElementById('play-btn'),
@@ -331,7 +332,6 @@ async function addRow(btn) {
     btn.setAttribute('disabled', true); // disable option to prevent copies of players
     // restart transport to play added row
     //stopPattern();
-    console.log(rows);
     rows = document.getElementsByClassName('drum-row');
 }
 
@@ -447,24 +447,16 @@ function stopPattern() {
     };
 }
 
-function highlighter() {
-
-}
-
-function repeat(time) {
-  let step = index % 16;
-  // start iteration at 1 to ignore hidden template row
-  for (let i = 1; i < rows.length; i++) {
-    let row = rows[i],
-        pads = row.getElementsByTagName('div'),
+function highlighter(row, controlRow, step) {
+    let pads = row.getElementsByTagName('div'),
         pad = pads[step],
         previousPad = pads[(step - 1)],
-        lastPad = pads[(pads.length - 1)],
-        instrName = row.getAttribute('data-instr'),
-        pattern = players[instrName].pattern,
-        player = players[instrName].player,
-        pitch = players[instrName].pitches[step],
-        volume = players[instrName].volumes[step];
+        lastPad = pads[(pads.length - 1)];
+        controls = controlRow.getElementsByClassName('pad-control'),
+        control = controls[step],
+        previousControl = controls[(step - 1)],
+        lastControl = controls[(controls.length - 1)];
+    
     if (previousPad !== undefined) {
         pad.classList.add('highlighted');
         previousPad.classList.remove('highlighted');
@@ -472,6 +464,28 @@ function repeat(time) {
         pad.classList.add('highlighted');
         lastPad.classList.remove('highlighted');
     };
+    if (previousControl !== undefined) {
+        control.classList.add('highlighted');
+        previousControl.classList.remove('highlighted');
+    } else {
+        control.classList.add('highlighted');
+        lastControl.classList.remove('highlighted');
+    };
+}
+
+function repeat(time) {
+  let step = index % 16;
+  // start iteration at 1 to ignore hidden template row
+  for (let i = 1; i < rows.length; i++) {
+    let row = rows[i],
+        controlRow = controlRows[i],
+        instrName = row.getAttribute('data-instr'),
+        pattern = players[instrName].pattern,
+        player = players[instrName].player,
+        pitch = players[instrName].pitches[step],
+        volume = players[instrName].volumes[step];
+
+    highlighter(row, controlRow, step);
     
     if (pattern[step] == 1) {
         player.volume.value = volume;
