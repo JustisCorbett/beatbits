@@ -290,8 +290,14 @@ body {
     padding-left: 0.5rem;
     font-size: 1.25rem;
     font-weight: 500;
-    order: 1;
+    
     color: #292929 !important;
+}
+
+.user-name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .pad {
@@ -397,10 +403,10 @@ body {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
     padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .bit-container {
@@ -414,12 +420,34 @@ body {
     border-radius: 10px;
     padding: 0.5rem 1rem;
     width: 100%;
+    flex-wrap: wrap;
+}
+
+.all-container {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    background-color: #363636;
+    flex-wrap: wrap;
+    margin: 2rem 2rem 0rem 2rem;
+    border-radius: 10px;
+    padding: 2rem;
 }
 
 .user-name {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.navbar-menu {
+    background-color: #333333;
+}
+
+.navbar-item {
+    color: #ADADAD;
 }
 
 @media only screen and (max-width: 767px) {
@@ -442,5 +470,10 @@ body {
     .left-controls {
         width: 100%;
         order: 3;
+    }
+    .bit-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
