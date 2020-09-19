@@ -457,6 +457,9 @@ body {
     .machine-container{
         margin: 0rem !important;
     }
+    .instrument-select {
+        width: auto;
+    }
 }
 
 @media only screen and (max-width: 626px) {

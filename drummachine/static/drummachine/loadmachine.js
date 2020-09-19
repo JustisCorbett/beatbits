@@ -307,11 +307,18 @@ function removeInstr(btn) {
     stopPattern();
 }
 
+async function loadSample(selection) {
+    let instrument = players[selection];
+
+    instrument.player = await new Tone.Player().toDestination();
+    instrument.player.load(instrument.path);
+}
+
 // Load player buffer if instrument doesn't have one,
 // then play sample.
 async function playSample(btn) {
     const selection = btn.parentNode.parentNode.getAttribute('data-name');
-    let instrument = players[selection]
+    let instrument = players[selection];
     
     if (instrument.player === null) {
         btn.classList.add('is-loading');
@@ -333,7 +340,7 @@ function addRow(btn) {
     const name = machineRowClone.getElementsByClassName('name')[0];
     const drumRow = machineRowClone.getElementsByClassName('drum-row')[0];
     // Make sure sample is loaded before adding.
-    playSample(btn);
+    loadSample(selection);
 
     machineRowClone.classList.remove('hidden');
     machineRowClone.setAttribute('data-instr', selection);
