@@ -4,7 +4,7 @@ from waitress import serve
 from beatbits.wsgi import application
 
 # Get port from env variable.
-port = os.environ["PORT"]
+port = 8000
 
 # Serve django application with waitress.
 if __name__ == '__main__':
