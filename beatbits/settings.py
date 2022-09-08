@@ -29,7 +29,7 @@ SECRET_KEY = config.get('secretkey', 'secretkey')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['justis.duckdns.org','10.0.0.212', 'localhost']
+ALLOWED_HOSTS = ['beatbits.justiscorbett.com','10.0.0.212', 'localhost']
 
 
 # Application definition
