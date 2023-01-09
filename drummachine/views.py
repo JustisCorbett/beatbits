@@ -131,7 +131,7 @@ def load_bit_info(request):
     user = User.objects.get(username=username)
     rack = Rack.objects.get(user=user, name=rack_name)
     if rack:
-        return JsonResponse(rack.config, status=200)
+        return JsonResponse(rack, status=200)
     else:
         return HttpResponse("Rack not found!", satus=404)
 
