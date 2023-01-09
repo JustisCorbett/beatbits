@@ -158,4 +158,20 @@ def save_bit(request):
             return HttpResponse("You already have a bit with that name!", status=400)
         return HttpResponse("Save successful!", status=200)
 
+def delete_bit(request):
+    """ Delete Bit as Rack in db """
+    if request.method == "DELETE":
+        if not request.user.is_authenticated:
+            return HttpResponse("User not authenticated", status=401);
         
+        user = request.user
+        data = json.loads(request.body)
+        name = data["name"]
+
+        rack = get_object_or_404(Rack, user=user, name=name)
+
+        try:
+            rack.delete()
+        except IntegrityError:
+            return HttpResponse("Deletion failed", status=400)
+        return HttpResponse("Deletion successful!", status=200)

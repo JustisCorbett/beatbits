@@ -34,7 +34,6 @@ window.onload = async () => {
 
     if (params.has("user") && params.has("rack")) {
         // if there are url params load that rack
-        
         fetch('load_bit_info?' + params)
         .then((response) => {
             if (response.ok) {
