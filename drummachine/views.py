@@ -172,6 +172,6 @@ def delete_bit(request):
 
         try:
             rack.delete()
-        except IntegrityError:
-            return HttpResponse("Deletion failed", status=400)
+        except:
+            return HttpResponse("Deletion failed.", status=400)
         return HttpResponse("Deletion successful!", status=200)
