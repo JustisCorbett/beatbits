@@ -133,7 +133,7 @@ def load_bit_info(request):
     if rack:
         return JsonResponse(rack, status=200)
     else:
-        return HttpResponse("Rack not found!", satus=404)
+        return HttpResponse("Rack not found!", status=404)
 
 
 def save_bit(request):
