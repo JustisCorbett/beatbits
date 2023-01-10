@@ -25,10 +25,12 @@ window.onload = async () => {
     const overlay = document.getElementById('loading-overlay');
     const loadingText = document.getElementById('loading-text');
     const savingText = document.getElementById('saving-text');
+    const deletingText = document.getElementById('deleting-text');
 
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
     if (savingText.classList.contains('hidden') === false) savingText.classList.add('hidden');
+    if (deletingText.classList.contains('hidden') === false) deletingText.classList.add('hidden');
 
     let params = (new URL(document.location)).searchParams;
 
