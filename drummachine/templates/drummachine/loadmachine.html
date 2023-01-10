@@ -10,9 +10,12 @@
 {% block body %}
     <div class="option-container py-2">
         <div class="name-container">
-            <span class="bit-name" id="name">Untitled Bit</span>
+            <div class="bit-name" id="name">Untitled Bit</div>
+            <div class="user-name">created by</div>
+            <div class="user-name" id="user-name">You</div>
         </div>
         <div class="left-controls py-2">
+            
             <div class="control field options">
                 <div>
                     <button id="name-panel-button" class="button is-light" onclick="moveNamePanel(this)">
@@ -30,7 +33,11 @@
             </div>
             <div>
                 <button class="button is-success" onclick="saveBit()">Save Bit</button>
+                {% if user.is_authenticated %}
+                <button class="button is-danger" onclick="deleteBit()">Delete Bit</button>
+                {% endif %}
             </div>
+            
             <div class="feedback hidden" id="feedback"></div>
             <div class="field pt-2 options">
                 <div class="input-dark">
@@ -432,5 +439,6 @@
         </div>
         <div class="loading-text" id="loading-text">Building Bit...</div>
         <div class="loading-text hidden" id="saving-text">Saving Bit...</div>
+        <div class="loading-text hidden" id="deleting-text">Deleting Bit...</div>
     </div>
 {% endblock %}

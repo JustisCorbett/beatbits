@@ -80,12 +80,16 @@ document.addEventListener("keydown", event => {
     }
 });
 
-async function buildRack(rack) {
+async function buildRack(data) {
     const btn = document.getElementById('kit-select-btn');
     const nameText = document.getElementById('name');
+    const userText = document.getElementById('user-name');
+    let rack = data.config;
+    let user = data.user;
 
     document.getElementById('kits').value = rack.kit;
     nameText.innerText = rack.name;
+    userText.innerText = user;
     Tone.Transport.bpm.value = rack.bpm;
     await loadKit(btn).then(() => {
         // loop through each instrument in rack and add a row for it
@@ -241,6 +245,54 @@ function saveBit() {
                 rack: rack
             });
         }
+        if (response.ok) {
+            return response.text().then((text) => {
+                if (text) {
+                    feedbackEl.classList.remove('hidden');
+                    feedbackEl.classList.add('has-text-success');
+                    feedbackEl.classList.remove('has-text-danger');
+                    feedbackEl.innerText = text;
+                } 
+                overlay.classList.add('hidden');
+            });
+        } else {
+            return response.text().then((text) => {
+                feedbackEl.classList.remove('hidden');
+                feedbackEl.classList.add('has-text-danger');
+                feedbackEl.classList.remove('has-text-success');
+                feedbackEl.innerText = text;
+                overlay.classList.add('hidden');
+            });
+        }
+    });
+}
+
+function deleteBit() {
+    const csrftoken = getCookie('csrftoken');
+    const bitName = document.getElementById('name').innerText;
+    const overlay = document.getElementById('loading-overlay');
+    const loadingText = document.getElementById('loading-text');
+    const deletingText = document.getElementById('deleting-text');
+    const feedbackEl = document.getElementById('feedback');
+
+    // toggle overlay during request
+    if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
+    if (loadingText.classList.contains('hidden') === false) loadingText.classList.add('hidden');
+    if (deletingText.classList.contains('hidden') === true) deletingText.classList.remove('hidden');
+
+    fetch('delete_bit', {
+        // send bit name and user in delete request
+        method: 'DELETE',
+        credentials: 'include',
+        headers: new Headers ({
+            "X-CSRFToken": csrftoken,
+            'content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+            name: bitName,
+        })
+    }).then(response => {
+        // show response of delete request
         if (response.ok) {
             return response.text().then((text) => {
                 if (text) {
