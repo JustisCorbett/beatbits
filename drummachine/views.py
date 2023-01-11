@@ -134,7 +134,6 @@ def load_bit_info(request):
         "user": username,
         "config": rack.config
     }
-    print(build)
     if rack:
         return JsonResponse(build, status=200)
     else:
