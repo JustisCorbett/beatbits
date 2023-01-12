@@ -131,6 +131,7 @@ def load_bit_info(request):
     user = User.objects.get(username=username)
     rack = Rack.objects.get(user=user, name=rack_name)
     build = {
+        "editable": request.user.username == username,
         "user": username,
         "config": rack.config
     }
