@@ -172,7 +172,10 @@ def delete_bit(request):
         data = json.loads(request.body)
         name = data["name"]
 
-        rack = get_object_or_404(Rack, user=user, name=name)
+        try:
+            rack = Rack.objects.get(user=user, name=name)
+        except:
+            return HttpResponse("No Rack found to delete.", status=404)
 
         try:
             rack.delete()
