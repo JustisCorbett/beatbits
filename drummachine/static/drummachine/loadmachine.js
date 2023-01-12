@@ -278,7 +278,7 @@ function deleteBit() {
     const feedbackEl = document.getElementById('feedback');
 
     // get confirmation of deletion
-    if (!confirm("This will permanently delete this bit. Are you sure?")) {
+    if (!confirm("WARNING: This will permanently delete this beat. Are you sure?")) {
         return;
     }
 
@@ -309,7 +309,8 @@ function deleteBit() {
                     feedbackEl.innerText = text;
                 } 
                 overlay.classList.add('hidden');
-                window.location.reload()
+                console.log("gothere")
+                location.reload(true);
             });
         } else {
             return response.text().then((text) => {
