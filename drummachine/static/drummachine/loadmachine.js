@@ -277,6 +277,11 @@ function deleteBit() {
     const deletingText = document.getElementById('deleting-text');
     const feedbackEl = document.getElementById('feedback');
 
+    // get confirmation of deletion
+    if (!confirm("This will permanently delete this bit. Are you sure?")) {
+        return;
+    }
+
     // toggle overlay during request
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     if (loadingText.classList.contains('hidden') === false) loadingText.classList.add('hidden');
@@ -304,6 +309,7 @@ function deleteBit() {
                     feedbackEl.innerText = text;
                 } 
                 overlay.classList.add('hidden');
+                window.location.reload()
             });
         } else {
             return response.text().then((text) => {
