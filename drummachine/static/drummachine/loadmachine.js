@@ -26,6 +26,8 @@ window.onload = async () => {
     const loadingText = document.getElementById('loading-text');
     const savingText = document.getElementById('saving-text');
     const deletingText = document.getElementById('deleting-text');
+    const deleteButton = document.getElementById('delete-button');
+    // TODO hide delete button if not the user that made beat using "editable"
 
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
@@ -46,6 +48,12 @@ window.onload = async () => {
         }).then((json) => {
             buildRack(json).then(() => {
                 overlay.classList.add('hidden');
+                console.log(json)
+                if (json["editable"] == true) {
+                    if (deleteButton.classList.contains('hidden')) deleteButton.classList.remove('hidden');
+                } else {
+                    if (!deleteButton.classList.contains('hidden')) deleteButton.classList.remove('hidden');
+                }
             });
         }).catch((err) => {
             // if fetch fails, log error and load default kit
