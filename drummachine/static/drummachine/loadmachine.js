@@ -27,7 +27,7 @@ window.onload = async () => {
     const savingText = document.getElementById('saving-text');
     const deletingText = document.getElementById('deleting-text');
     const deleteButton = document.getElementById('delete-button');
-    // TODO hide delete button if not the user that made beat using "editable"
+    const username = document.getElementById('user-name');
 
     if (overlay.classList.contains('hidden') === true) overlay.classList.remove('hidden');
     if (loadingText.classList.contains('hidden') === true) loadingText.classList.remove('hidden');
@@ -47,13 +47,16 @@ window.onload = async () => {
             }
         }).then((json) => {
             buildRack(json).then(() => {
-                overlay.classList.add('hidden');
                 console.log(json)
+                username.innerHTML = json['user'];
+                username.href = window.location.hostname + "/user_bits?user=" + json['user']
+                //hide delete button if not creator
                 if (json["editable"] == true) {
                     if (deleteButton.classList.contains('hidden')) deleteButton.classList.remove('hidden');
                 } else {
                     if (!deleteButton.classList.contains('hidden')) deleteButton.classList.remove('hidden');
                 }
+                overlay.classList.add('hidden');
             });
         }).catch((err) => {
             // if fetch fails, log error and load default kit
@@ -93,13 +96,11 @@ document.addEventListener("keydown", event => {
 async function buildRack(data) {
     const btn = document.getElementById('kit-select-btn');
     const nameText = document.getElementById('name');
-    const userText = document.getElementById('user-name');
     let rack = data.config;
     let user = data.user;
 
     document.getElementById('kits').value = rack.kit;
     nameText.innerText = rack.name;
-    userText.innerText = user;
     Tone.Transport.bpm.value = rack.bpm;
     await loadKit(btn).then(() => {
         // loop through each instrument in rack and add a row for it
