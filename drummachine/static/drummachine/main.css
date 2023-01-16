@@ -272,6 +272,7 @@ body {
 
 .name-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -282,6 +283,18 @@ body {
     font-size: 2rem;
     font-weight: 500;
     color: white;
+}
+
+.user-name-bit {
+    padding: 0.15rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+}
+.user-name-bit-link {
+    padding: 0.15rem;
+    font-size: 1.15rem;
+    font-weight: 500;
 }
 
 .name {

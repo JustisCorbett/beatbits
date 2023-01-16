@@ -49,7 +49,7 @@ window.onload = async () => {
             buildRack(json).then(() => {
                 console.log(json)
                 username.innerHTML = json['user'];
-                username.href = window.location.hostname + "/user_bits?user=" + json['user']
+                username.href = "/user_bits?user=" + json['user']
                 //hide delete button if not creator
                 if (json["editable"] == true) {
                     if (deleteButton.classList.contains('hidden')) deleteButton.classList.remove('hidden');
