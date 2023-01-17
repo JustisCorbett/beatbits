@@ -47,7 +47,6 @@ window.onload = async () => {
             }
         }).then((json) => {
             buildRack(json).then(() => {
-                console.log(json)
                 username.innerHTML = json['user'];
                 username.href = "/user_bits?user=" + json['user']
                 //hide delete button if not creator
@@ -84,7 +83,6 @@ window.onload = async () => {
 
 document.addEventListener("keydown", event => {
     if (event.isComposing || event.keyCode === 32) {
-        console.log(Tone.Transport.state);
         if (Tone.Transport.state === "paused" || Tone.Transport.state === "stopped") {
             startPattern();
         } else {
@@ -318,7 +316,6 @@ function deleteBit() {
                     feedbackEl.innerText = text;
                 } 
                 overlay.classList.add('hidden');
-                console.log("gothere")
                 location.reload(true);
             });
         } else {
